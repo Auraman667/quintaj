@@ -107,3 +107,29 @@ button:hover{background:#e0f2ff}
 @media(max-width:650px){.pause-card,.pause-featured{padding:21px}.pause-featured h2{font-size:28px}.holiday-list{grid-template-columns:1fr}.holiday-info{padding:18px}}
 .appearance-panel{margin-bottom:22px}.appearance-panel h2{margin-top:0;font-size:23px}.scene-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:18px 0}.scene-option{padding:0;overflow:hidden;text-align:left;min-width:0}.scene-option img{display:block;width:100%;height:90px;object-fit:cover}.scene-option span{display:block;padding:9px 10px;font-size:13px}.scene-option[aria-pressed=true]{border:2px solid #1687f0}.appearance-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.appearance-controls select{padding:9px;border-radius:8px;margin-left:8px}.weekend-compact{padding:16px 20px;margin:16px 0 24px;background:var(--paper);border:1px solid var(--line);border-radius:11px;display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap}.weekend-compact h3{font-size:14px;margin:0}.weekend-compact p{font-size:13px;margin:0}.weekend-compact small{font-size:12px;color:var(--muted)}.pause-countdown{font-size:26px;font-weight:750}.pause-detail{font-size:13px!important}
 @media(max-width:650px){.scene-options{grid-template-columns:repeat(2,minmax(0,1fr))}.appearance-controls{display:block}.appearance-controls select{margin:8px 0;width:100%}.weekend-compact h3{flex-basis:100%}}
+
+/* Keep wide tables inside their own scroll area, including on Safari. */
+.shell>*,.workspace>*,.stats>*,.agenda>*,.holiday-list>*{min-width:0}
+.panel,.where-now,.plan-current,.week-scroll,#month-view{min-width:0;max-width:100%}
+#month-view,.week-scroll{width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.week-table th,.week-cell{overflow-wrap:anywhere;white-space:normal}
+.where-now>div,.plan-current>div,.lesson-row>div{min-width:0}
+.plan-controls input,.plan-controls select{min-width:0;box-sizing:border-box}
+@media(max-width:650px){
+ .stats{grid-template-columns:repeat(3,minmax(0,1fr))}.stat>div{min-width:0}.stat small{overflow-wrap:break-word}
+ .heading-actions{max-width:100%;flex-wrap:wrap}.heading-actions button{min-width:0;white-space:normal}
+ .plan-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px;align-items:end}
+ .plan-controls>label{min-width:0;max-width:100%;width:100%;margin:0;flex:none}
+ .plan-controls input,.plan-controls input[type=date],.plan-controls input[type=time],.plan-controls select{width:100%;min-width:0;max-width:100%!important;inline-size:100%;min-inline-size:0;padding:11px 8px;font-size:16px;line-height:1.5;min-height:48px;margin:0}
+ .plan-controls input::-webkit-date-and-time-value{min-width:0;text-align:left}
+ .plan-controls input::-webkit-datetime-edit{min-width:0;padding:0}
+ .plan-controls .day-stepper{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:stretch;min-width:0}
+ .day-stepper button{min-width:0;width:100%;padding:12px 8px;line-height:1.5;min-height:48px;white-space:normal}
+ .plan-controls .week-select,.plan-controls #plan-now,.plan-controls .plan-clock{grid-column:1/-1;min-width:0;width:100%;margin:0}
+ .plan-clock{overflow-wrap:anywhere}.plan-current .eyebrow,.plan-meta,.plan-links,.lesson-row h3,.lesson-row p{overflow-wrap:anywhere}
+ .plan-tabs .view-toggle{flex-shrink:0;max-width:100%}.week-switch{gap:8px}.week-switch span{min-width:0;overflow-wrap:anywhere}.week-switch button{flex-shrink:0}
+ .list-item>div:last-child{min-width:0;overflow-wrap:anywhere}.circular-row h3,.agenda-card h3{overflow-wrap:anywhere}
+ .phone-dock{grid-template-columns:repeat(3,minmax(0,1fr))}.phone-dock button{min-width:0;white-space:normal;line-height:1.4;min-height:52px}
+ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}html{scroll-padding-bottom:calc(106px + env(safe-area-inset-bottom))}
+}
+@media(max-width:380px){.plan-controls{grid-template-columns:minmax(0,1fr)}.plan-controls>label{grid-column:1/-1}.day-stepper button{font-size:13px}}

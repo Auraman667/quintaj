@@ -15,6 +15,8 @@ button{background:#10253b;border-color:#35516f;color:#eff7ff}button:hover{backgr
 .primary{background:#0873d2;border-color:#399eff;color:white;font-weight:650}.primary:hover{background:#0865bc;color:white}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:#7cddff}
 button:disabled{opacity:.6;cursor:not-allowed}
+.day-stepper button{background:#143650;border-color:#3b6d90;color:#d9f0ff}
+.day-stepper button:hover{background:#1b4c70;border-color:#73bce6;color:#fff}
 input,select,textarea,.filters select,.search input,.rep-toolbar select,.plan-controls input,.plan-controls select,#task-text,#task-due,#task-filter,#archive-search,#archive-scope{background:#08192d!important;color:#edf6ff!important;border-color:#3b5b7b!important}
 input::placeholder,textarea::placeholder,.search input::placeholder{color:#a3b9d4}
 .hero{background:linear-gradient(90deg,#07182cf5 5%,#07182cbb 60%,#07182c4d),url('./assets/scenes/waterfront.jpg') center 53%/cover;border:1px solid #37648c;min-height:190px}
