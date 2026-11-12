@@ -24,7 +24,15 @@ Ogni circolare contiene «In pratica, cosa devi fare», con attività, consegne,
 
 «La mia agenda» conserva compiti e promemoria nel localStorage del browser, con scadenze, completamento ed eliminazione. Questi dati non vengono inviati al repository, pubblicati né sincronizzati tra dispositivi. La lista resta dopo la chiusura del sito, ma può andare persa cancellando i dati del browser o usando la navigazione privata. Esportazione e importazione JSON permettono di conservare una copia o trasferirla su un altro dispositivo.
 
-«Prossime pause» raggruppa i giorni consecutivi senza lezioni e mostra attesa e durata, includendo i weekend. Le sospensioni aggiuntive sono riconosciute dalle circolari rivolte alla 5J; quelle riservate al Majorana o al serale non vengono applicate. Le date di ripresa e i riferimenti a vecchie circolari non vengono trattati come festività. Le sospensioni riconosciute sono escluse anche da «Dove devo andare». I giorni corrispondenti sono evidenziati in blu elettrico nel calendario. Le comunicazioni con date non attribuibili restano da verificare; non vengono inventati periodi di vacanza.
+«Prossime pause» mette in primo piano le festività con nome, conto alla rovescia, date e durata inclusiva; i weekend sono raccolti in un riquadro più piccolo. La base è il calendario ufficiale della Sicilia 2026/27, verificato il 12 novembre 2026: Immacolata (7–8 dicembre), Natale (23 dicembre–7 gennaio), Pasqua (25–30 marzo), festività nazionali e Madonna della Lettera (3 giugno, patrona di Messina). I weekend consecutivi sono inclusi nella pausa totale e le date proprie della festività restano esplicite. Il 15 maggio non è una sospensione prevista dal calendario regionale. Le lezioni ordinarie terminano il 9 giugno 2027; gli esami seguono un calendario separato.
+
+Le circolari rivolte alla 5J integrano o adattano questa base; quelle riservate al Majorana o al serale non vengono applicate. Le date di ripresa e i riferimenti a vecchie circolari non vengono trattati come festività. Le sospensioni riconosciute sono escluse anche da «Dove devo andare». I giorni corrispondenti sono evidenziati in blu elettrico nel calendario, con nomi specifici come Natale, Epifania e Pasqua. Le comunicazioni con date non attribuibili restano da verificare; non vengono inventati ponti sulla base degli anni precedenti.
+
+## Aspetto e ripristino
+
+Il tema predefinito è «Notte blu», con le cinque immagini fornite dall’utente e pannelli scuri ad alto contrasto. «Sfondo» apre la scelta dell’immagine e permette di tornare al tema azzurro chiaro. Queste preferenze sono locali al browser e non modificano l’agenda personale. Immagini e controlli dell’aspetto sono inclusi nella copia offline. Gli screenshot Discord e Spotify sono stati usati solo come riferimento e non vengono pubblicati.
+
+Prima del restyling è stato conservato il ramo `backup/2026-11-12-prima-tema-notturno`, commit `1688cf68ade94d1e3f5cd655bc34ca5acc49fa6b`. Esiste anche uno ZIP di tutti i file della versione precedente. Il backup riguarda codice, immagini e dati pubblici; l’agenda personale continua a risiedere nel browser con la stessa chiave di salvataggio.
 
 L’icona della Home è azzurra con «5J» in bianco. Se il telefono conserva l’icona verde, rimuovere il vecchio collegamento dalla Home e aggiungerlo di nuovo dal sito GitHub Pages.
 
@@ -37,5 +45,7 @@ Fonti:
 - https://nuovo.veronatrento.it/circolare/
 - https://nuovo.veronatrento.it/orario/
 - https://veronatrento.it/Orario2627/VT/Classi/5J.html
+- https://www.usr.sicilia.it/calendario-scolastico-2026-27/
+- https://comune.messina.it/it/news/festa-della-madonna-della-lettera-2026-tutte-le-modifiche-alla-viabilita-per-le-celebrazioni-del-3-giugno?type=2
 - https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
 - https://docs.github.com/en/billing/concepts/product-billing/github-actions

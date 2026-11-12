@@ -7,7 +7,7 @@ import {practicalFor} from '../lib/practical.mjs';
 import {schoolBreaksFor,closureEvents} from '../lib/school-breaks.mjs';
 import {datesIn} from '../lib/events.mjs';
 const payload=JSON.parse(await fs.readFile('data.json','utf8'));
-const html=(await fs.readFile('index.html','utf8')).replace('<script src="./personal-agenda.js"></script>','<script>'+await fs.readFile('personal-agenda.js','utf8')+'</script>');
+const html=(await fs.readFile('index.html','utf8')).replace('<script src="./personal-agenda.js?v=night6"></script>','<script>'+await fs.readFile('personal-agenda.js','utf8')+'</script>').replace('<script src="./appearance.js?v=night6"></script>','<script>'+await fs.readFile('appearance.js','utf8')+'</script>');
 const KEY='quintaj-personal-agenda-v1';
 async function site(saved){const errors=[],requests=[];const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));const dom=new JSDOM(html,{url:'https://example.github.io/quintaj/',runScripts:'dangerously',virtualConsole:vc,beforeParse(w){w.QuintaJSchedule=core;w.TextEncoder=TextEncoder;w.fetch=async url=>{requests.push(url);return {ok:true,headers:{get:()=>null},json:async()=>payload};};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};if(saved)w.localStorage.setItem(KEY,saved);}});await new Promise(r=>setTimeout(r,150));return {dom,w:dom.window,d:dom.window.document,errors,requests};}
 
@@ -50,4 +50,12 @@ test('sospensioni: niente chiusura 5J da avvisi solo Majorana; revoca e aule coe
  const r=record('Sospensione attività didattica 20 novembre 2026','Le lezioni sono sospese il 20 novembre 2026.');const n=notice(r);const events=closureEvents(schoolBreaksFor([r],[n],datesIn).breaks,[n]);const plan=core.dayPlan(payload.timetable,'2026-11-20',events);assert.equal(plan.lessons.length,0);assert.match(plan.reason,/sospese/);
  const other=record('Sospensione attività didattica Majorana 20 novembre 2026','Le lezioni sono sospese il 20 novembre 2026.');assert.equal(schoolBreaksFor([other],[notice(other)],datesIn).breaks.length,0);
  const rev=record('Revoca sospensione attività didattica 20 novembre 2026','È revocata la sospensione del 20 novembre 2026.','301');assert.equal(schoolBreaksFor([r,rev],[n,notice(rev)],datesIn).breaks.length,0);
+});
+
+test('preferenze: cinque immagini, tema chiaro ripristinabile e agenda personale conservata',async()=>{
+ const saved=JSON.stringify({version:1,tasks:[{id:'existing',text:'Impegno da conservare',done:false,due:''}]});const a=await site(saved);
+ try{a.d.getElementById('appearance-open').click();assert.ok(!a.d.getElementById('info-page').classList.contains('hidden'));assert.equal(a.d.querySelectorAll('[data-scene]').length,5);a.d.querySelector('[data-scene="london"]').click();assert.equal(a.w.localStorage.getItem('quintaj-scene'),'london');assert.match(a.d.documentElement.style.getPropertyValue('--scene'),/london.jpg/);
+ const select=a.d.getElementById('appearance-theme');select.value='light';select.dispatchEvent(new a.w.Event('change'));assert.equal(a.d.getElementById('night-theme').disabled,true);assert.equal(a.w.localStorage.getItem('quintaj-theme'),'light');assert.equal(a.w.localStorage.getItem(KEY),saved);
+ a.d.querySelector('[data-scene="rain"]').click();assert.equal(a.d.getElementById('night-theme').disabled,false);assert.equal(a.w.localStorage.getItem('quintaj-theme'),'night');a.d.querySelector('[data-page="holidays"]').click();assert.match(a.d.getElementById('holiday-next').textContent,/Immacolata/);assert.match(a.d.getElementById('holiday-list').textContent,/Vacanze di Natale/);assert.match(a.d.getElementById('holiday-list').textContent,/Vacanze di Pasqua/);assert.match(a.d.getElementById('holiday-weekends').textContent,/weekend/);assert.deepEqual(a.errors,[]);
+ }finally{a.dom.window.close();}
 });

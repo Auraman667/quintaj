@@ -1,0 +1,88 @@
+/* Night-blue surfaces keep every timetable and notice readable above the photos. */
+:root{color-scheme:dark;--bg:#06101f;--paper:#0b1c31;--ink:#f0f6ff;--muted:#b5c8df;--line:#304c69;--green:#1687f0;--lime:#c1edff;--soft:#193551;--cyan:#65caff}
+body{background:#06101f;color:var(--ink);isolation:isolate}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,#05101c70,#030b15db),var(--scene,url('./assets/scenes/skyline.jpg')) center/cover no-repeat;pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 70% 0%,#1670be28,transparent 65%);pointer-events:none}
+.shell{background:#06101f40}.sidebar{background:#060e1be8;border-color:#29445e;backdrop-filter:blur(18px)}
+.brand b{color:#67cdff}.mark{background:#167bd8;color:white;box-shadow:0 0 26px #1687f033}
+.nav button{color:#bfd0e5}.nav button.active,.phone-dock button.active{background:#124a7c;color:white;box-shadow:inset 3px 0 #6acbff}
+.nav button:hover{background:#142c45}.nav button.active:hover{background:#18598e}
+.school,.side-label,.class-card small,.breadcrumb,.top-right,.eyebrow,.side-bottom p,.side-bottom a,.footer,.status-line,.icon-button,.arrow{color:var(--muted)}
+.side-bottom a{color:#a9d9ff!important}.class-icon,.avatar,.stat-icon,.mini-badge,.doc-icon{background:#153654;color:#b1e2ff}
+.class-card{background:#0a1b2dcc}.dot{background:#69d6b1}.topbar{border-color:#35516b88}.top-right .avatar{border:1px solid #3d6484}
+.heading{margin-block:28px}.heading h1{color:#f5f9ff;letter-spacing:-1px;text-shadow:0 2px 15px #0008}.heading p{color:#c0d0e5}
+button{background:#10253b;border-color:#35516f;color:#eff7ff}button:hover{background:#1c3b5c}
+.primary{background:#0873d2;border-color:#399eff;color:white;font-weight:650}.primary:hover{background:#0865bc;color:white}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:#7cddff}
+button:disabled{opacity:.6;cursor:not-allowed}
+input,select,textarea,.filters select,.search input,.rep-toolbar select,.plan-controls input,.plan-controls select,#task-text,#task-due,#task-filter,#archive-search,#archive-scope{background:#08192d!important;color:#edf6ff!important;border-color:#3b5b7b!important}
+input::placeholder,textarea::placeholder,.search input::placeholder{color:#a3b9d4}
+.hero{background:linear-gradient(90deg,#07182cf5 5%,#07182cbb 60%,#07182c4d),url('./assets/scenes/waterfront.jpg') center 53%/cover;border:1px solid #37648c;min-height:190px}
+.hero-text{max-width:78%}.hero h2{font-size:29px;line-height:1.4;max-width:580px}.hero p,.hero .eyebrow{color:#d5e7fa}.hero-tag{background:#102b48c9;border-color:#557898}
+.hero-art{background:#1c4261c9;color:#e2f5ff;border:1px solid #6b9cb5;box-shadow:-15px 15px 0 #3e91bd16;backdrop-filter:blur(10px)}
+.hero-art small{color:#c2e5f7;border-color:#a1c5dd55}.hero-art::before,.hero-art::after{background:#74b9e6}
+.stat,.panel,.agenda-card{background:#0b1c31f2;border-color:#304c69;box-shadow:0 8px 26px #02081422}
+.stat strong{color:#f2f8ff}.stat small{color:#bed1e6}.stat:nth-child(2) .stat-icon{background:#403327;color:#ffd397}.stat:nth-child(3) .stat-icon{background:#2d2b4d;color:#d8c7ff}
+.where-now{background:linear-gradient(90deg,#091c32fc 12%,#091c32e8 65%,#091c3299),url('./assets/scenes/london.jpg') right 52%/cover;border-color:#346186;border-left-color:#5dc9ff;padding:26px}
+.where-now h2{color:#f4f8ff}.where-now p{color:#c4d8ed}.where-now .room-big,.plan-current .room-big{color:#79d4ff;text-shadow:0 0 24px #3ca5eb20}
+.plan-next{border-color:#365875;color:#dce9fa}.plan-next strong{color:white}
+.calendar-top,.plan-tabs,.rep-toolbar{background:#0b1c31d9}.month-controls h2,.section-head h2,.agenda-header h2,.plan-tabs h2{color:#f4f8ff}
+.view-toggle{border-color:#3e5e7c}.view-toggle button{background:transparent;color:#bdd0e7}.view-toggle button.active{background:#234d72;color:white}
+.weekdays{background:#0b1a2c;border-color:#35516d}.weekdays span{color:#bad0e9}
+.day{background:#0c2037;border-color:#29445f}.day.weekend{background:#102750}.day.outside{background:#09182b;color:#7f9ab8}
+.date-number{color:#dbeafd}.day.is-today .date-number{background:#1687f0;color:white}.day.selected{background:#123854;box-shadow:inset 0 0 0 2px #6bcfff}
+.event-pill{background:#163d47;color:#c8f3e3;border-color:#6bd2b1}.event-pill:hover{background:#205460}
+.event-pill.orario,.event-pill.aule{background:#443320;color:#ffdfa2;border-color:#dda44b}
+.event-pill.cinema,.event-pill.uscite{background:#34294c;color:#e4d3ff;border-color:#a391e1}
+.event-pill.rettifiche{background:#492a34;color:#ffd1d8;border-color:#df92a5}
+.more{color:#bcd5ed}.legend{color:#b9cfe5}.legend i{background:#6bd2b1}
+.tag,.day-source-tag{background:#183c5b;color:#bce9ff}.tag.orange{background:#443320;color:#ffdfa2}.tag.purple{background:#34294c;color:#e4d3ff}
+.agenda-card:hover,.circular-row:hover,.list-item:hover{background:#17314b}.agenda-card h3,.circular-row h3,.list-item h3{color:#f0f6ff}
+.agenda-date,.agenda-card p,.circular-row p,.list-item p,.date-box,.empty{color:#b9cce3}.date-box b{color:#8ed9ff}
+.notice{background:#102b43;border-color:#315574}.notice h3{color:#eaf6ff}.notice p{color:#bad0e5}.text-btn,.settings a,.plan-meta a{color:#8bd8ff}
+.settings p,.settings li,.rep-summary,.install-steps,.phone-note{color:#c3d3e7}.settings h2{color:#f0f7ff}
+.representative-duty,.plan-current.is-representative{background:#342b1b;border-color:#806e40}.representative-duty p,.representative-duty li,.role-badge{color:#ffdfa0}
+.role-badge{background:#48361e}.connection-status,.plan-warning,.inline-room-change{background:#392e1b;border-color:#897046;color:#ffe0a5}
+.plan-warning strong,.inline-room-change strong,.inline-room-change a,.lesson-change{color:#ffe7b8!important}.inline-room-change p{color:#e7d4b5}.error{color:#ffb8ba}
+.plan-controls label,.plan-clock{color:#c7d9ed}.plan-current{background:linear-gradient(125deg,#113c5c,#0a2037);border-color:#3b6d90}
+.plan-current h2{color:#f1f7ff}.plan-current p{color:#cce0f4}.plan-meta{color:#b1c6df}
+.lesson-row{background:#0b1c31;border-color:#2a455f}.lesson-row.is-current{background:#123e59;box-shadow:inset 4px 0 #74d6ff}
+.lesson-time,.lesson-row p{color:#bcd0e7}.lesson-time b,.lesson-row h3{color:#f0f7ff}.lesson-room a{color:#8bdcff}
+.week-table th{background:#0a192b;color:#c3d6ec;border-color:#304c69}.week-table td{border-color:#304c69}
+.week-table td:first-child{color:#bdd0e7}.week-cell{background:#0c2037;color:#d5e5f7}.week-cell strong{color:#8edaff}.week-cell.today,.week-cell:hover{background:#183b59}
+.phone-dock{background:#081627f5;border-color:#3b5a77}.phone-dock button{color:#c6dbf1}.phone-dock button.active{color:white}
+dialog{background:#0b1c31;color:#f1f7ff;border-color:#476580;box-shadow:0 25px 100px #0009}dialog::backdrop{background:#020713b3;backdrop-filter:blur(5px)}
+.modal h2{color:#f2f8ff}.modal p,.modal-meta{color:#c7d8ed}.modal blockquote{background:#102c45;color:#d4e6f7;border-color:#6ecfff}
+.practical-explanation{background:#102b44;border-color:#37698c}.practical-explanation h3,.practical-explanation dt{color:#a0dfff}
+.practical-explanation p,.practical-explanation dd{color:#d2e3f5}.practical-explanation .practical-date{background:#091c31;border-color:#6bcfff;color:#ecf7ff}
+.practical-explanation dl>div{border-color:#35546e}.practical-explanation .practical-note{color:#b0c7df}
+.agenda-privacy{color:#bdd1e7}.personal-agenda h2,.task-toolbar h3,#task-form>label{color:#f1f7ff}
+.task-form-bottom label,.task-date{color:#b4c9e1}.task-toolbar,.task-backup{border-color:#35536e}.task-row{background:#0c233b;border-color:#355877}
+.task-check span{color:#f0f7ff}.task-check input{accent-color:#48b2ff}.task-done .task-check span{color:#9eb5cf}
+.task-row-bottom button{background:#2c2533;color:#ffc0c6;border-color:#6b4a5b}.task-date.overdue,#task-status.error{color:#ffb5bb}.task-backup p{color:#b5c9e1}#task-status{color:#9cddff}
+.day.school-off{background:#102952;border-color:#38558e;box-shadow:inset 0 3px #477dff}.day.school-off.selected{background:#183f69;box-shadow:inset 0 0 0 2px #8acaff}
+.day.school-off .date-number{color:#d3e5ff}.day.school-off.is-today .date-number{background:#346fff}.day-off-label{background:#265bd9;color:#f6f9ff;font-size:10px;white-space:normal;max-width:100%;line-height:1.5}
+.day.is-holiday{background:#132e65}.day.is-weekend:not(.is-holiday) .day-off-label{background:#1a3b6d;color:#b7cff4;font-size:10px;padding-block:1px}
+.pause-card{background:#0d243df5;border-color:#365d83;border-top-color:#5598ff}.pause-card h2{color:#eaf4ff;font-size:25px}.pause-card .eyebrow{color:#a6d6ff}
+.pause-card p{color:#c3d8f0}.pause-card a{color:#9edbff}.pause-card .pause-duration{color:#91d7ff}
+.pause-featured{position:relative;overflow:hidden;background:linear-gradient(90deg,#081b32fa 5%,#0a2036ed 58%,#0a2036a3),url('./assets/scenes/london.jpg') center 48%/cover;padding:32px;border:1px solid #5182b0;border-top:3px solid #65baff;min-height:285px}
+.pause-featured h2{font-size:34px;line-height:1.35;max-width:750px;margin-bottom:10px}.pause-countdown{font:800 30px 'Manrope',sans-serif;color:#9bdfff!important;margin:8px 0}
+.pause-featured .pause-duration{font-size:20px}.pause-dates{font-weight:600}.pause-card .pause-detail{font-size:13px;color:#b2cbe4}
+.holiday-info{background:#0b1e33ed}.holiday-info p{color:#bcd2e9}.holiday-info a{color:#97d9ff}
+.weekend-compact{padding:17px 20px;margin:16px 0 24px;background:#0a1b2fdf;border:1px solid #304d69;border-radius:11px;display:flex;align-items:center;flex-wrap:wrap;gap:10px 22px}
+.weekend-compact h3{font-size:14px;margin:0;color:#a9bfd9;font-weight:600}.weekend-compact p{margin:0;font-size:13px;color:#bcd0e8}.weekend-compact strong{color:#e4efff;font-weight:600}.weekend-compact small{font-size:12px;color:#94b4d5}
+.holiday-list{grid-template-columns:repeat(2,minmax(0,1fr))}.holiday-list .pause-card{padding:22px}.holiday-list .pause-countdown{font-size:23px}
+.appearance-panel{margin-bottom:22px}.appearance-panel h2{font-size:23px;line-height:1.5;margin-top:0}.appearance-panel p{max-width:750px}
+.scene-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:18px 0}.scene-option{min-width:0;padding:0;overflow:hidden;text-align:left;border-radius:10px;background:#0a1d33;border:1px solid #35516f}
+.scene-option img{display:block;width:100%;height:90px;object-fit:cover}.scene-option span{display:block;padding:9px 10px;font-size:13px;color:#d4e6f8}
+.scene-option[aria-pressed=true]{border:2px solid #75ceff;box-shadow:0 0 0 2px #1687f022}.appearance-controls{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.appearance-controls label{color:#c4d9ef;font-size:14px}.appearance-controls select{font-size:15px;min-height:44px;padding:9px;border-radius:8px;margin-left:8px}
+.photo-strip{height:105px;border-radius:10px;margin-bottom:20px;background:linear-gradient(90deg,#06111b77,#0c2b4540),url('./assets/scenes/rain.jpg') center 48%/cover;border:1px solid #3b6483}
+@media(max-width:950px){.scene-options{grid-template-columns:repeat(3,minmax(0,1fr))}.hero h2{font-size:26px}}
+@media(max-width:650px){
+ .shell{background:#06101f66}.sidebar{background:#071322f0;backdrop-filter:none}.heading h1{font-size:28px}.heading p{font-size:15px}.heading-actions button{font-size:13px}
+ .hero{min-height:195px;padding:22px;background-position:center}.hero-text{max-width:100%}.hero h2{font-size:24px}.hero-art{display:none}
+ .where-now{padding:22px 18px;background-position:65% center}.where-now h2{font-size:24px}.where-now .room-big{font-size:38px}
+ .pause-featured{padding:24px 20px;min-height:280px}.pause-featured h2{font-size:28px}.pause-countdown{font-size:27px}.holiday-list{grid-template-columns:1fr}
+ .weekend-compact{padding:15px 17px;gap:7px}.weekend-compact h3{flex-basis:100%}.weekend-compact p{font-size:12px}
+ .scene-options{grid-template-columns:repeat(2,minmax(0,1fr))}.scene-option img{height:84px}.appearance-controls{display:block}.appearance-controls label{display:block}.appearance-controls select{display:block;margin:8px 0;width:100%}
+}

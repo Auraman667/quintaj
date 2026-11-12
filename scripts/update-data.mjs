@@ -19,5 +19,6 @@ const records=[...map.values()].sort((a,b)=>b.published.localeCompare(a.publishe
 const raw={updatedAt:new Date().toISOString(),schoolYear:'2026/2027',start,complete,archiveCount:records.length,records,nextPage:rotating,errors};
 let timetable=publicPrevious.timetable,timetableError=null;try{timetable=await readTimetable(records);}catch(e){timetableError='Orario non aggiornato: '+e.message;}
 const payload={...publicData(raw),timetable,timetableError,mode:'github-pages',syncUntil:UNTIL,refreshing:false,lastError:null};
+payload.timetable={...payload.timetable,schoolBreaks:payload.schoolBreaks};
 await fs.writeFile('.cache/state.json',JSON.stringify(raw));await fs.writeFile('data.json.tmp',JSON.stringify(payload));await fs.rename('data.json.tmp','data.json');
 console.log(JSON.stringify({read,archiveCount:records.length,studentCount:payload.studentCount,events:payload.events.length,updatedAt:payload.updatedAt,errors:errors.length,timetableError}));
