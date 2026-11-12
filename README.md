@@ -18,6 +18,16 @@ L’aggiornatore legge l’archivio pubblico della scuola e i PDF, ricontrolla i
 
 Il calendario esclude gli adempimenti riservati al personale e distingue classe, istituto e Consulta. «Dove devo andare» conserva aula ordinaria e destinazione della variazione con modulo, fascia e circolare. Se una variazione non è riconosciuta con certezza, mostra un avviso senza inventare un’aula.
 
+Ogni circolare contiene «In pratica, cosa devi fare», con attività, consegne, date, luogo, costi e obbligatorietà. Le informazioni non presenti nel documento sono indicate come non specificate; la facoltatività di un singolo incontro non viene estesa all’intero progetto. La spiegazione dell’hackathon distingue orientamento, iscrizione, consegna e presentazione. L’estrazione automatica funziona senza servizi AI a pagamento.
+
+## Agenda personale e pause
+
+«La mia agenda» conserva compiti e promemoria nel localStorage del browser, con scadenze, completamento ed eliminazione. Questi dati non vengono inviati al repository, pubblicati né sincronizzati tra dispositivi. La lista resta dopo la chiusura del sito, ma può andare persa cancellando i dati del browser o usando la navigazione privata. Esportazione e importazione JSON permettono di conservare una copia o trasferirla su un altro dispositivo.
+
+«Prossime pause» raggruppa i giorni consecutivi senza lezioni e mostra attesa e durata, includendo i weekend. Le sospensioni aggiuntive sono riconosciute dalle circolari rivolte alla 5J; quelle riservate al Majorana o al serale non vengono applicate. Le date di ripresa e i riferimenti a vecchie circolari non vengono trattati come festività. Le sospensioni riconosciute sono escluse anche da «Dove devo andare». I giorni corrispondenti sono evidenziati in blu elettrico nel calendario. Le comunicazioni con date non attribuibili restano da verificare; non vengono inventati periodi di vacanza.
+
+L’icona della Home è azzurra con «5J» in bianco. Se il telefono conserva l’icona verde, rimuovere il vecchio collegamento dalla Home e aggiungerlo di nuovo dal sito GitHub Pages.
+
 ## Sviluppo
 
 Node.js 24: `npm ci`, `npm test`, `npm run build`. I file da pubblicare sono in `_site`. `npm run update` esegue un controllo reale; `.cache` non deve essere commessa. In Settings → Pages la sorgente deve essere **GitHub Actions**.
