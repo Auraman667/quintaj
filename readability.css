@@ -1,0 +1,73 @@
+/* Cyan theme with larger type, stronger contrast and comfortable touch targets. */
+:root{--bg:#f1f8fb;--paper:#fff;--ink:#123743;--muted:#496777;--line:#cddfe6;--green:#07566b;--lime:#a5f3fc;--soft:#e5f7fc;--cyan:#06b6d4}
+body{font-size:16px;line-height:1.6}
+button,input,select{min-height:44px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline-color:#0891b2}
+button:hover{background:#e5f7fc}
+.sidebar{background:#fafdff}.brand b,.text-btn,.settings a,.plan-meta a{color:#08758e}
+.mark{background:#07566b;color:#a5f3fc}.primary:hover{background:#06465a}
+.school,.side-label,.nav button,.breadcrumb,.top-right,.eyebrow,.icon-button,.arrow,.footer{color:var(--muted)}
+.nav button.active,.phone-dock button.active{background:var(--green);color:white}
+.school,.side-label,.class-card small,.side-bottom p,.online,.breadcrumb,.top-right,.eyebrow{font-size:12px}
+.nav button{font-size:15px}.class-icon,.avatar,.stat-icon,.mini-badge,.doc-icon{background:#e0f5fb;color:#07566b}
+.dot{background:#0891b2}.heading h1{letter-spacing:-1px}.heading p{font-size:15px;max-width:620px}
+.hero{background:#07566b}.hero .eyebrow,.hero p{color:#def8ff}.hero p{font-size:15px}.hero-tag{font-size:12px}
+.hero-art{background:#a5f3fc;color:#07566b}.hero-art::before,.hero-art::after{background:#22b8d4}
+.stat small{font-size:14px}.stat strong{font-size:30px}.panel{box-shadow:0 3px 14px #12374305}
+.workspace{grid-template-columns:minmax(0,1fr) 300px}
+.month-controls h2,.agenda-header h2,.section-head h2,.plan-tabs h2{font-size:19px;letter-spacing:-.3px}
+.calendar-top{flex-wrap:wrap}.month-controls{flex-wrap:wrap;gap:8px}
+.icon-button{min-width:44px}.today-btn,.view-toggle button,#filter-day{font-size:14px;padding:8px 12px}
+.view-toggle button.active{background:#d7f2fa;color:#07566b;font-weight:700}
+.filters select,.search input{font-size:14px;padding:10px;max-width:100%}.filters select{flex:1;min-width:150px}
+.search input{background:white}.search input::placeholder{color:#496777}
+#month-view{overflow-x:auto;scrollbar-color:#0891b2 #e5f7fc}
+.weekdays,.grid{min-width:700px}.weekdays{background:#f0f9fc}.weekdays span{font-size:12px;color:var(--muted);font-weight:700}
+.day{min-height:130px;padding:9px 7px;border-color:#dce8ed}.day.weekend,.day.outside{background:#f5fafc}.day.outside{color:#607884}
+.date-number{font-size:14px;min-height:30px;width:30px;height:30px}.day.selected{background:#e5f7fc;box-shadow:inset 0 0 0 2px #0891b2}
+.event-pill{font-size:12px;line-height:1.5;padding:6px;max-height:66px;min-height:0;background:#e0f5fb;color:#07566b;border-color:#0891b2}
+.event-pill.orario,.event-pill.aule{color:#79430d;background:#fff0d8;border-color:#b96b12}
+.event-pill.cinema,.event-pill.uscite{color:#61448a;background:#f0eafa}.event-pill.rettifiche{color:#943b2c}
+.more{font-size:12px}.legend{font-size:12px}.legend i{background:#0891b2}
+.tag,.role-badge,.day-source-tag{font-size:12px;line-height:1.5}.tag,.day-source-tag{background:#def4fb;color:#07566b}
+.agenda-card{padding:20px}.agenda-card h3,.circular-row h3,.list-item h3{font-size:16px;line-height:1.65}
+.agenda-date,.agenda-card p,.circular-row p,.list-item p,.date-box,.mini-badge{font-size:13px}
+.notice{background:#e7f6fc;border-color:#c4e3ed}.notice h3{font-size:15px}.notice p{font-size:14px;color:var(--muted)}
+.text-btn,.status-line,.footer,.empty,.rep-summary,.connection-status{font-size:13px;line-height:1.8}
+.circular-row{padding-block:20px}.circular-row:hover{background:#eff9fc}
+.settings p,.settings li,.modal p,.modal blockquote,.install-steps{font-size:16px;color:var(--muted)}
+.modal h2{font-size:26px}.modal blockquote{background:#edf9fc;border-color:#0891b2}
+.modal-meta,.modal-links a,.modal-links button,.representative-duty p,.representative-duty li{font-size:14px}
+.where-now{border-left:5px solid #0891b2;padding:24px}.where-now h2{font-size:27px}
+.where-now p,.where-now .primary,.plan-current p,.plan-next,.plan-links,.plan-event,.plan-event button{font-size:15px}
+.where-now .eyebrow,.plan-current .eyebrow{font-size:12px;letter-spacing:1px}.where-now .room-big{font-size:38px}
+.plan-controls{gap:16px;padding:24px}.plan-controls label{font-size:14px;color:var(--ink)}
+.plan-controls input,.plan-controls select{font-size:16px;min-height:48px}.plan-clock{font-size:13px}
+.plan-current{background:#e2f6fc;border-color:#b4deeb;padding:26px}.plan-current h2{font-size:30px}.plan-current p{color:#355a6b}
+.plan-current .room-big{font-size:48px}.plan-next{border-color:#acd3e0}.plan-meta{font-size:13px;line-height:1.9}
+.lesson-row{padding:22px;gap:20px}.lesson-row.is-current{background:#e2f6fc;box-shadow:inset 4px 0 #0891b2}
+.lesson-time{font-size:14px;min-width:85px}.lesson-row h3{font-size:17px}.lesson-row p{font-size:14px}.lesson-room{font-size:24px}
+.plan-warning,.inline-room-change{font-size:15px}.inline-room-change p,.inline-room-change a,.plan-warning a,.phone-note{font-size:14px}
+.week-table{min-width:820px}.week-table th,.week-table td:first-child{font-size:13px;color:var(--muted)}
+.week-cell{font-size:13px;line-height:1.6;min-height:125px}.week-cell strong{font-size:20px}.week-cell.today,.week-cell:hover{background:#e2f6fc}
+.week-switch{font-size:15px}.day-stepper{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.day-stepper button{font-size:14px;min-height:46px;padding:10px 14px;background:#edf9fc;border-color:#a7d5e4;color:#07566b;font-weight:600}
+@media(max-width:1250px){.workspace{grid-template-columns:1fr}.agenda{display:grid;grid-template-columns:1fr 1fr;gap:12px}.agenda-header,.agenda .notice{grid-column:1/-1}.agenda-card{margin:0}}
+@media(max-width:650px){
+ main{padding-inline:12px}.sidebar{padding:16px 12px}.nav button{font-size:14px;min-height:46px}.nav{gap:4px}
+ .heading{align-items:flex-start;flex-wrap:wrap}.heading h1{font-size:28px}.heading p{font-size:15px;max-width:none}.heading .eyebrow{font-size:11px}
+ .heading-actions{flex-direction:row}.heading-actions button{font-size:13px}.hero{padding:22px}.hero-text{max-width:100%}.hero-art{display:none}.hero h2,.hero p{max-width:none}.hero p{font-size:15px}
+ .stats{gap:7px}.stat{padding:13px 10px}.stat small{font-size:12px}.stat strong{font-size:25px}
+ .calendar-top{gap:12px;padding:16px 12px}.month-controls h2{font-size:18px}.calendar-top .today-btn{display:block}
+ .view-toggle button{font-size:13px;padding:8px}.filters{padding:0 12px 16px;gap:8px}.filters select,.search input{font-size:16px}
+ .agenda{grid-template-columns:1fr}.agenda-card h3,.circular-row h3{font-size:16px}.agenda-date,.agenda-card p{font-size:13px}
+ .where-now{padding:20px}.where-now h2{font-size:25px}.where-now p{font-size:15px}.where-now .room-big{font-size:38px}.where-now .primary{white-space:normal}
+ .plan-controls{padding:18px;gap:12px}.plan-controls label{min-width:125px}.plan-controls .day-stepper{flex-basis:100%}.day-stepper button{flex:1;font-size:14px}
+ .plan-clock{font-size:13px}.plan-current{padding:20px;margin:0 16px 18px}.plan-current h2{font-size:26px}.plan-current p{font-size:15px}.plan-current .room-big{font-size:44px}
+ .plan-meta{font-size:13px}.plan-tabs{align-items:flex-start;flex-wrap:wrap;gap:12px}.plan-tabs h2{font-size:18px}
+ .lesson-row{display:grid;grid-template-columns:66px minmax(0,1fr);gap:10px 14px;padding:20px 16px}.lesson-time{min-width:0;font-size:14px}.lesson-row h3{font-size:16px}.lesson-row p{font-size:14px}
+ .lesson-room{grid-column:2;text-align:left;margin:0;max-width:none;font-size:24px}.plan-warning,.inline-room-change{font-size:14px}.plan-links{font-size:14px}
+ .phone-dock{background:#f7fcfff5;padding-inline:6px}.phone-dock button{font-size:12px;line-height:1.5}.footer{font-size:12px;flex-wrap:wrap}
+ .modal h2{font-size:25px}.modal p{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
