@@ -1,0 +1,173 @@
+{
+  "className": "5J",
+  "cycleWeeks": 4,
+  "timeZone": "Europe/Rome",
+  "anchorDate": "2026-10-19",
+  "validFrom": "2026-10-19",
+  "anchorSource": "https://nuovo.veronatrento.it/circolare/orario-tecnologico-diurno-aggiornamento-dal-19-ottobre-2026/",
+  "anchorNumber": "159",
+  "sourceUrl": "https://veronatrento.it/Orario2627/VT/Classi/5J.html",
+  "sourcePage": "https://nuovo.veronatrento.it/orario/",
+  "days": [
+    {
+      "label": "GIO4",
+      "week": 4,
+      "weekday": 4,
+      "lessons": [
+        {
+          "period": 1,
+          "start": "08:00",
+          "end": "09:15",
+          "subject": "GESTIONE PROGETTO",
+          "teachers": [
+            "COGLITORE",
+            "COPPOLINO"
+          ],
+          "rooms": [
+            {
+              "name": "B23",
+              "url": "https://veronatrento.it/Orario2627/VT/Aule/B23.html"
+            }
+          ]
+        },
+        {
+          "period": 2,
+          "start": "09:15",
+          "end": "10:30",
+          "subject": "INGLESE",
+          "teachers": [
+            "CELONA"
+          ],
+          "rooms": [
+            {
+              "name": "B15",
+              "url": "https://veronatrento.it/Orario2627/VT/Aule/B15.html"
+            }
+          ]
+        },
+        {
+          "period": 3,
+          "start": "10:30",
+          "end": "11:45",
+          "subject": "STORIA",
+          "teachers": [
+            "COLUCCI"
+          ],
+          "rooms": [
+            {
+              "name": "B15",
+              "url": "https://veronatrento.it/Orario2627/VT/Aule/B15.html"
+            }
+          ]
+        },
+        {
+          "period": 4,
+          "start": "11:45",
+          "end": "13:00",
+          "subject": "ITALIANO",
+          "teachers": [
+            "COLUCCI"
+          ],
+          "rooms": [
+            {
+              "name": "B15",
+              "url": "https://veronatrento.it/Orario2627/VT/Aule/B15.html"
+            }
+          ]
+        },
+        {
+          "period": 5,
+          "start": "13:00",
+          "end": "14:15",
+          "subject": "TPSI",
+          "teachers": [
+            "SGRO'"
+          ],
+          "rooms": [
+            {
+              "name": "B15",
+              "url": "https://veronatrento.it/Orario2627/VT/Aule/B15.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "VEN4",
+      "week": 4,
+      "weekday": 5,
+      "lessons": [
+        {
+          "period": 1,
+          "start": "08:00",
+          "end": "09:15",
+          "subject": "INFORMATICA",
+          "teachers": [
+            "MIANO F."
+          ],
+          "rooms": [
+            {
+              "name": "B15",
+              "url": "https://veronatrento.it/Orario2627/VT/Aule/B15.html"
+            }
+          ]
+        },
+        {
+          "period": 2,
+          "start": "09:15",
+          "end": "10:30",
+          "subject": "GESTIONE PROGETTO",
+          "teachers": [
+            "COGLITORE"
+          ],
+          "rooms": [
+            {
+              "name": "B15",
+              "url": "https://veronatrento.it/Orario2627/VT/Aule/B15.html"
+            }
+          ]
+        },
+        {
+          "period": 3,
+          "start": "10:30",
+          "end": "11:45",
+          "subject": "MATEMATICA",
+          "teachers": [
+            "LASCARI"
+          ],
+          "rooms": [
+            {
+              "name": "B15",
+              "url": "https://veronatrento.it/Orario2627/VT/Aule/B15.html"
+            }
+          ]
+        },
+        {
+          "period": 4,
+          "start": "11:45",
+          "end": "13:00",
+          "subject": "SISTEMI E RETI",
+          "teachers": [
+            "NATOLI"
+          ],
+          "rooms": [
+            {
+              "name": "B15",
+              "url": "https://veronatrento.it/Orario2627/VT/Aule/B15.html"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "breaks": [
+    {
+      "start": "10:25",
+      "end": "10:35"
+    },
+    {
+      "start": "13:00",
+      "end": "13:10"
+    }
+  ]
+}
