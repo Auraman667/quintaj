@@ -27,7 +27,7 @@ test('agenda: errore di salvataggio esplicito, importazione validata e nessuna p
 });
 
 test('spiegazione: niente costi, obblighi o sede dedotti dall’intestazione',()=>{
- const record={title:'Laboratorio per alunni',published:'2026-11-12',documents:[{text:'Sede Centrale Verona Trento Via Ugo Bassi. Oggetto: Laboratorio per alunni. Il 20 novembre è previsto un laboratorio per gli alunni.'}]};const p=practicalFor(record,{title:record.title,events:[]},datesIn);assert.match(p.cost,/non specificati/);assert.match(p.participation,/non specifica/);assert.equal(p.where,'Non specificato nella circolare.');
+ const record={title:'Laboratorio per alunni',published:'2026-11-12',documents:[{text:'Sede Centrale Verona Trento Via Ugo Bassi. Oggetto: Laboratorio per alunni. Il 20 novembre è previsto un laboratorio per gli alunni.'}]};const p=practicalFor(record,{title:record.title,events:[]},datesIn);assert.match(p.cost,/non (?:specificati|dice se ci sono costi)/i);assert.match(p.participation,/non (?:specifica|dice se)/i);assert.equal(p.where,'Non specificato nella circolare.');
 });
 
 test('calendario: weekend blu, prossime pause e spiegazione hackathon per il giorno selezionato',async()=>{
@@ -72,4 +72,22 @@ test('agenda: una verifica con data compare nel calendario e si può togliere',a
 test('agenda: copie vecchie senza tipo e calendario restano valide',async()=>{
  const a=await site(JSON.stringify({version:1,tasks:[{id:'x1',text:'Vecchio',done:false,due:'2026-11-20'}]}));
  try{assert.equal(a.d.querySelectorAll('.task-row').length,1);assert.equal(a.d.querySelector('.event-pill.personale'),null);assert.deepEqual(a.errors,[]);}finally{a.dom.window.close();}
+});
+
+test('riassunti: parole spezzate del PDF ricucite, luogo e orario estratti, niente intestazione',async()=>{
+ const {analyze}=await import('../lib/events.mjs');const {useVocabulary,buildVocabulary}=await import('../lib/text-repair.mjs');
+ const recs=JSON.parse(await fs.readFile('tests/fixtures/circolari-spezzate.json','utf8'));useVocabulary(buildVocabulary(recs.flatMap(r=>[r.title,...r.documents.map(d=>d.text)])));
+ const [ai,polizia,sciopero]=recs.map(r=>analyze(r).practical);
+ assert.match(ai.overview,/Giornata Nazionale dello Studente, il 17 novembre 2026/);assert.doesNotMatch(ai.overview,/N azionale|202 6|Si comunica/);
+ assert.match(ai.overview,/futuro”\.$/,'la frase tra virgolette non viene spezzata');
+ assert.equal(ai.where,'Palestra del nostro Istituto');assert.equal(ai.when,'Martedì 17 novembre 2026, dalle 9:30 alle 12:00');
+ assert.match(polizia.where,/^Auditorium della Gazzetta del Sud, via /);assert.match(polizia.when,/alle 11:00/);assert.doesNotMatch(polizia.action,/PEO|PEC|Codice/);
+ assert.equal(sciopero.where,'Non specificato nella circolare.');assert.match(sciopero.action,/^Le famiglie/);
+ for(const p of [ai,polizia,sciopero])for(const v of [p.overview,p.action,p.where])assert.doesNotMatch(v,/\s[,.;:]|PEO:|P\.IVA/);
+});
+
+test('lettore PDF: unisce i pezzi della stessa parola usando la posizione',async()=>{
+ const {linesFromItems}=await import('../lib/source.mjs');
+ const it=(str,x,y,w,eol)=>({str,transform:[12,0,0,12,x,y],width:w,hasEOL:eol});
+ assert.deepEqual(linesFromItems([it('Giornata ',10,100,50),it('N',60,100,8),it('azionale',68.2,100,45),it('dello',117,100,25,true),it('202',10,80,20),it('6',30.1,80,6)]),['Giornata Nazionale dello','2026']);
 });
