@@ -1,4 +1,4 @@
-/* QuintaJ — menu a tendina, torna su, settimana a fisarmonica, pioggia opzionale (v mobile8) */
+/* QuintaJ — menu a tendina, torna su, settimana a fisarmonica, pioggia opzionale (v mobile9) */
 (()=>{try{
 const $=id=>document.getElementById(id);
 const mobile=matchMedia('(max-width:650px)');
@@ -46,10 +46,14 @@ function enhanceDock(){const dock=document.querySelector('.phone-dock');if(!dock
 
 /* torna su */
 const fab=document.createElement('button');fab.type='button';fab.className='qj-fab';fab.setAttribute('aria-label','Torna in alto');fab.textContent='↑';fab.onclick=()=>scrollTo({top:0,behavior});document.body.append(fab);
-addEventListener('scroll',()=>fab.classList.toggle('show',scrollY>700),{passive:true});
+/* compare solo mentre si scorre verso l'alto, poi sparisce: così non copre badge e frecce */
+let lastY=scrollY,fabTimer=0;
+addEventListener('scroll',()=>{const y=scrollY,up=y<lastY-4;if(Math.abs(y-lastY)>4)lastY=y;
+ if(y>700&&up){fab.classList.add('show');clearTimeout(fabTimer);fabTimer=setTimeout(()=>fab.classList.remove('show'),2500);}
+ else if(y<=700||y>lastY){fab.classList.remove('show');}},{passive:true});
 
 /* toccando un giorno del calendario, porta all'elenco di quel giorno */
-document.addEventListener('click',e=>{if(!mobile.matches||!e.target.closest('#calendar [data-day]'))return;setTimeout(()=>document.querySelector('.agenda')?.scrollIntoView({behavior,block:'start'}),80);});
+document.addEventListener('click',e=>{if(!mobile.matches||!e.target.closest('#calendar [data-day]'))return;setTimeout(()=>document.querySelector('.agenda')?.scrollIntoView({behavior,block:'start'}),80);},true); /* in cattura: il calendario si ridisegna al tocco e il bottone originale sparisce */
 
 /* settimana: una fisarmonica per giorno (la tabella resta come fonte, i tocchi la attivano) */
 function enhanceWeek(){const host=$('plan-week-table');const t=host?.querySelector('table.week-table');if(!t||host.querySelector('.qj-week'))return;

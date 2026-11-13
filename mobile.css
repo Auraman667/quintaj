@@ -1,4 +1,4 @@
-/* QuintaJ — ottimizzazioni telefono (v mobile8). Caricato dopo night.css. */
+/* QuintaJ — ottimizzazioni telefono (v mobile9). Caricato dopo night.css. */
 :root{--qj-card:#fff;--qj-line:#dce8ed;--qj-ink:#203b34;--qj-muted:#607884;--qj-accent:#0784df;--qj-sheet:#f6fbff}
 .qj-night{--qj-card:#0c2037;--qj-line:#29445f;--qj-ink:#d5e5f7;--qj-muted:#8fb2d6;--qj-accent:#6bcfff;--qj-sheet:#0a1a2d}
 
@@ -60,7 +60,8 @@ body.rain-on #qj-rain{opacity:1}
  .day .event-pill{pointer-events:none;font-size:0!important;line-height:0!important;width:7px!important;height:7px!important;min-height:0!important;max-height:7px!important;padding:0!important;margin:0!important;border:0!important;border-radius:50%!important;background:currentColor!important;overflow:hidden;display:block}
  .day .more{display:none!important}
  .day.is-today{box-shadow:inset 0 0 0 1.5px var(--qj-accent)}
- .day .day-off-label{order:5;flex:0 0 100%;font-size:8px!important;line-height:1.2;padding:1px 0!important;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:static!important}
+ .day .day-off-label{order:5;flex:0 0 100%;font-size:8px!important;line-height:1.15;padding:1px 1px!important;text-align:center;white-space:normal!important;overflow-wrap:anywhere;hyphens:auto;position:static!important}
+ .agenda{scroll-margin-top:12px}
  .day.is-weekend .day-off-label{display:none}
 
  /* settimana: una fisarmonica per giorno invece della tabella larga */
