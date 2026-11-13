@@ -78,7 +78,7 @@ test('riassunti: parole spezzate del PDF ricucite, luogo e orario estratti, nien
  const {analyze}=await import('../lib/events.mjs');const {useVocabulary,buildVocabulary}=await import('../lib/text-repair.mjs');
  const recs=JSON.parse(await fs.readFile('tests/fixtures/circolari-spezzate.json','utf8'));useVocabulary(buildVocabulary(recs.flatMap(r=>[r.title,...r.documents.map(d=>d.text)])));
  const [ai,polizia,sciopero,assemblea,aci]=recs.map(r=>analyze(r).practical);
- assert.equal(assemblea.when,'Mercoledì 18 novembre 2026, alle 9:15 · Giovedì 19 novembre 2026, alle 10:15');assert.equal(assemblea.where,'Aula Magna · Palestra');assert.match(assemblea.overview,/^Convocazione/);
+ assert.equal(assemblea.when,'Mercoledì 18 novembre 2026, alle 9:15 (plesso Majorana) · Giovedì 19 novembre 2026, alle 9:15 (anche la 5J)');assert.equal(assemblea.where,'Aula Magna · Palestra');assert.match(assemblea.overview,/^Convocazione/);
  assert.match(aci.action,/^Gli alunni dovranno consegnare l’autorizzazione/);assert.doesNotMatch(aci.action,/Prof\.ssa|SI EVIDENZIA|Liberatoria/);assert.equal(aci.where,'Teatro Cristo Re, Viale Principe Umberto n° 12');assert.equal(aci.cost,'La partecipazione è gratuita.');
  assert.match(ai.overview,/Giornata Nazionale dello Studente, il 17 novembre 2026/);assert.doesNotMatch(ai.overview,/N azionale|202 6|Si comunica/);
  assert.match(ai.overview,/futuro”\.$/,'la frase tra virgolette non viene spezzata');
@@ -92,4 +92,12 @@ test('lettore PDF: unisce i pezzi della stessa parola usando la posizione',async
  const {linesFromItems}=await import('../lib/source.mjs');
  const it=(str,x,y,w,eol)=>({str,transform:[12,0,0,12,x,y],width:w,hasEOL:eol});
  assert.deepEqual(linesFromItems([it('Giornata ',10,100,50),it('N',60,100,8),it('azionale',68.2,100,45),it('dello',117,100,25,true),it('202',10,80,20),it('6',30.1,80,6)]),['Giornata Nazionale dello','2026']);
+});
+
+test('assemblea divisa per plesso: il 19 vale per la 5J (streaming e uscita al termine), il 18 solo per il Majorana',async()=>{
+ const {analyze}=await import('../lib/events.mjs');
+ const r=JSON.parse(await fs.readFile('tests/fixtures/circolari-spezzate.json','utf8')).find(x=>x.number==='243');const c=analyze(r);
+ const e18=c.events.find(e=>e.date==='2026-11-18'),e19=c.events.find(e=>e.date==='2026-11-19');
+ assert.equal(e19.scope,'5J');assert.equal(e19.time,'09:15');assert.match(e19.title,/uscita al termine/);assert.match(c.practical.byDate['2026-11-19'],/streaming.*sciolte: si esce prima/);
+ assert.equal(e18.scope,'Altre classi');assert.match(c.practical.byDate['2026-11-18'],/non riguarda la 5J/);
 });
