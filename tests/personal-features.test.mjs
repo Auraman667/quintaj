@@ -109,3 +109,11 @@ test('solo diurno: nelle circolari miste le parti del serale non entrano in cale
  assert.ok(!dates.includes('2026-10-13'),'data del serale esclusa');
  for(const v of Object.values(c.practical))if(typeof v==='string')assert.doesNotMatch(v,/serale/);
 });
+
+test('di sera non vuol dire serale: i consigli di classe con i rappresentanti restano',async()=>{
+ const {analyze}=await import('../lib/events.mjs');
+ const r={url:'https://nuovo.veronatrento.it/circolare/consigli-test/',number:'901',published:'2026-11-02',title:'Convocazione dei Consigli di Classe – classi quinte',body:'',documents:[{url:'x.pdf',text:'Oggetto: Convocazione dei Consigli di Classe – classi quinte\nSi comunica che i Consigli di Classe si terranno in orario serale con la partecipazione dei rappresentanti degli studenti e dei genitori: giovedì 26 novembre 2026 alle ore 18:00 la classe 5J.\nMercoledì 25 novembre 2026 alle ore 19:00 si riuniranno i consigli delle classi del serale.'}]};
+ const c=analyze(r);const dates=c.events.map(e=>e.date);
+ assert.ok(dates.includes('2026-11-26'),'consiglio della 5J di sera presente');
+ assert.ok(!dates.includes('2026-11-25'),'consigli del corso serale esclusi');
+});
