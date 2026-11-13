@@ -1,0 +1,80 @@
+/* QuintaJ — ottimizzazioni telefono (v mobile8). Caricato dopo night.css. */
+:root{--qj-card:#fff;--qj-line:#dce8ed;--qj-ink:#203b34;--qj-muted:#607884;--qj-accent:#0784df;--qj-sheet:#f6fbff}
+.qj-night{--qj-card:#0c2037;--qj-line:#29445f;--qj-ink:#d5e5f7;--qj-muted:#8fb2d6;--qj-accent:#6bcfff;--qj-sheet:#0a1a2d}
+
+.qj-week{display:none}
+#qj-rain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;opacity:0;transition:opacity .6s}
+body.rain-on #qj-rain{opacity:1}
+
+.qj-fab{position:fixed;right:14px;bottom:calc(86px + env(safe-area-inset-bottom));z-index:19;width:46px;height:46px;border-radius:50%;padding:0;display:grid;place-items:center;font-size:20px;background:var(--qj-card);color:var(--qj-ink);border:1px solid var(--qj-line);box-shadow:0 6px 22px #0006;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .2s,transform .2s}
+.qj-fab.show{opacity:1;transform:none;pointer-events:auto}
+
+.qj-sheet{position:fixed;inset:0;z-index:40;display:none}
+.qj-sheet.open{display:block}
+.qj-sheet-bg{position:absolute;inset:0;width:100%;border:0!important;border-radius:0!important;padding:0;background:#02070fbb!important;animation:qj-fade .2s}
+.qj-sheet-panel{position:absolute;left:0;right:0;bottom:0;max-height:86vh;overflow:auto;background:var(--qj-sheet);color:var(--qj-ink);border-top:1px solid var(--qj-line);border-radius:22px 22px 0 0;padding:10px 14px calc(20px + env(safe-area-inset-bottom));animation:qj-up .28s cubic-bezier(.2,.8,.2,1)}
+.qj-grip{width:42px;height:4px;border-radius:4px;background:var(--qj-line);margin:4px auto 14px}
+.qj-sheet h2{font:650 13px 'DM Sans',sans-serif;color:var(--qj-muted);margin:0 4px 10px;letter-spacing:0}
+.qj-sheet-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.qj-item,.qj-tool{display:flex;align-items:center;gap:11px;text-align:left;min-height:56px;padding:12px 14px;border-radius:14px;background:var(--qj-card)!important;border:1px solid var(--qj-line)!important;color:var(--qj-ink)!important;font-size:15px;width:100%}
+.qj-item .ic{font-size:18px;color:var(--qj-accent);width:22px;text-align:center;flex:none}
+.qj-item.active{border-color:var(--qj-accent)!important;box-shadow:inset 3px 0 var(--qj-accent)}
+.qj-tools{display:grid;gap:8px}
+.qj-tool{justify-content:space-between}
+.qj-switch{width:46px;height:26px;border-radius:13px;background:var(--qj-line);position:relative;flex:none;transition:background .2s}
+.qj-switch::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--qj-muted);transition:transform .2s,background .2s}
+.qj-tool[aria-pressed=true] .qj-switch{background:#1581d6}
+.qj-tool[aria-pressed=true] .qj-switch::after{transform:translateX(20px);background:#fff}
+@keyframes qj-up{from{transform:translateY(48px);opacity:0}}
+@keyframes qj-fade{from{opacity:0}}
+@media(min-width:651px){.qj-sheet,.qj-fab{display:none!important}}
+
+@media(max-width:650px){
+ /* barra in alto più leggera: la navigazione sta nel dock + menu */
+ .sidebar{padding:12px 16px!important}
+ .sidebar .nav{display:none!important}
+
+ /* dock a 4 voci con icona sopra */
+ .phone-dock{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ .phone-dock button{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:7px 2px!important;min-height:54px!important;font-size:11px!important;line-height:1.2!important}
+ .phone-dock .ic{font-size:19px;line-height:1}
+
+ /* hero più compatto */
+ .hero{min-height:0!important;padding:16px 18px!important}
+ .hero p,.hero-tag{display:none!important}
+ .hero h2{font-size:20px!important;margin:6px 0 0!important}
+
+ /* ordine: calendario → giorno selezionato → circolari */
+ .workspace>div:first-child{display:contents}
+ .workspace>div>section.panel{order:1}
+ .workspace>aside{order:2;scroll-margin-top:10px}
+ .workspace>div>:not(section.panel){order:3}
+
+ /* calendario mensile: 7 colonne che stanno nello schermo, eventi come puntini */
+ #month-view{overflow:visible!important}
+ .weekdays,.grid{min-width:0!important}
+ .weekdays span{font-size:11px!important;text-align:center;padding:8px 0}
+ .day{min-height:56px!important;padding:5px 2px 4px!important;display:flex!important;flex-wrap:wrap;justify-content:center;align-content:flex-start;gap:3px;position:relative}
+ .day .date-number{position:static!important;flex:0 0 100%;display:flex;justify-content:center;font-size:15px!important;min-height:0!important;padding:2px 0!important;background:none!important;border:0!important;line-height:1.3}
+ .day .date-number::after{content:"";position:absolute;inset:0;z-index:1}
+ .day .event-pill{pointer-events:none;font-size:0!important;line-height:0!important;width:7px!important;height:7px!important;min-height:0!important;max-height:7px!important;padding:0!important;margin:0!important;border:0!important;border-radius:50%!important;background:currentColor!important;overflow:hidden;display:block}
+ .day .more{display:none!important}
+ .day.is-today{box-shadow:inset 0 0 0 1.5px var(--qj-accent)}
+ .day .day-off-label{order:5;flex:0 0 100%;font-size:8px!important;line-height:1.2;padding:1px 0!important;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:static!important}
+ .day.is-weekend .day-off-label{display:none}
+
+ /* settimana: una fisarmonica per giorno invece della tabella larga */
+ .week-scroll .week-table{display:none}
+ .qj-week{display:grid;gap:8px;padding:0 12px 14px}
+ .qj-week details{border:1px solid var(--qj-line);border-radius:14px;background:var(--qj-card);overflow:hidden}
+ .qj-week details.today{border-color:var(--qj-accent)}
+ .qj-week summary{list-style:none;display:flex;align-items:center;gap:10px;min-height:54px;padding:12px 16px;font-weight:650;font-size:16px;color:var(--qj-ink);cursor:pointer}
+ .qj-week summary::-webkit-details-marker{display:none}
+ .qj-week summary small{margin-left:auto;font-size:12px;font-weight:500;color:var(--qj-muted)}
+ .qj-week summary::after{content:"";width:8px;height:8px;border-right:2px solid var(--qj-muted);border-bottom:2px solid var(--qj-muted);transform:rotate(45deg);margin:-3px 2px 0 4px;transition:transform .2s}
+ .qj-week details[open] summary::after{transform:rotate(-135deg);margin-top:3px}
+ .qj-slot{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;align-items:center;padding:10px 16px;border-top:1px solid var(--qj-line)}
+ .qj-slot time{font-size:12px;line-height:1.4;color:var(--qj-muted)}
+ .qj-slot .week-cell{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;min-height:0!important;padding:0!important;background:none!important;border:0!important;text-align:left;font-size:14px!important;color:var(--qj-ink)!important}
+ .qj-slot .week-cell strong{font-size:20px!important;color:var(--qj-accent)!important}
+}
