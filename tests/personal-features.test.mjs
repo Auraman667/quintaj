@@ -77,7 +77,9 @@ test('agenda: copie vecchie senza tipo e calendario restano valide',async()=>{
 test('riassunti: parole spezzate del PDF ricucite, luogo e orario estratti, niente intestazione',async()=>{
  const {analyze}=await import('../lib/events.mjs');const {useVocabulary,buildVocabulary}=await import('../lib/text-repair.mjs');
  const recs=JSON.parse(await fs.readFile('tests/fixtures/circolari-spezzate.json','utf8'));useVocabulary(buildVocabulary(recs.flatMap(r=>[r.title,...r.documents.map(d=>d.text)])));
- const [ai,polizia,sciopero]=recs.map(r=>analyze(r).practical);
+ const [ai,polizia,sciopero,assemblea,aci]=recs.map(r=>analyze(r).practical);
+ assert.equal(assemblea.when,'Mercoledì 18 novembre 2026, alle 9:15 · Giovedì 19 novembre 2026, alle 10:15');assert.equal(assemblea.where,'Aula Magna · Palestra');assert.match(assemblea.overview,/^Convocazione/);
+ assert.match(aci.action,/^Gli alunni dovranno consegnare l’autorizzazione/);assert.doesNotMatch(aci.action,/Prof\.ssa|SI EVIDENZIA|Liberatoria/);assert.equal(aci.where,'Teatro Cristo Re, Viale Principe Umberto n° 12');assert.equal(aci.cost,'La partecipazione è gratuita.');
  assert.match(ai.overview,/Giornata Nazionale dello Studente, il 17 novembre 2026/);assert.doesNotMatch(ai.overview,/N azionale|202 6|Si comunica/);
  assert.match(ai.overview,/futuro”\.$/,'la frase tra virgolette non viene spezzata');
  assert.equal(ai.where,'Palestra del nostro Istituto');assert.equal(ai.when,'Martedì 17 novembre 2026, dalle 9:30 alle 12:00');
