@@ -7,7 +7,7 @@ import {practicalFor} from '../lib/practical.mjs';
 import {schoolBreaksFor,closureEvents} from '../lib/school-breaks.mjs';
 import {datesIn} from '../lib/events.mjs';
 const payload=JSON.parse(await fs.readFile('data.json','utf8'));
-const html=(await fs.readFile('index.html','utf8')).replace('<script src="./personal-agenda.js?v=night6"></script>','<script>'+await fs.readFile('personal-agenda.js','utf8')+'</script>').replace('<script src="./appearance.js?v=night6"></script>','<script>'+await fs.readFile('appearance.js','utf8')+'</script>');
+const html=(await fs.readFile('index.html','utf8')).replace('<script src="./personal-agenda.js?v=cal1"></script>','<script>'+await fs.readFile('personal-agenda.js','utf8')+'</script>').replace('<script src="./appearance.js?v=night6"></script>','<script>'+await fs.readFile('appearance.js','utf8')+'</script>');
 const KEY='quintaj-personal-agenda-v1';
 async function site(saved){const errors=[],requests=[];const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));const dom=new JSDOM(html,{url:'https://example.github.io/quintaj/',runScripts:'dangerously',virtualConsole:vc,beforeParse(w){w.QuintaJSchedule=core;w.TextEncoder=TextEncoder;w.fetch=async url=>{requests.push(url);return {ok:true,headers:{get:()=>null},json:async()=>payload};};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};if(saved)w.localStorage.setItem(KEY,saved);}});await new Promise(r=>setTimeout(r,150));return {dom,w:dom.window,d:dom.window.document,errors,requests};}
 
@@ -58,4 +58,18 @@ test('preferenze: cinque immagini, tema chiaro ripristinabile e agenda personale
  const select=a.d.getElementById('appearance-theme');select.value='light';select.dispatchEvent(new a.w.Event('change'));assert.equal(a.d.getElementById('night-theme').disabled,true);assert.equal(a.w.localStorage.getItem('quintaj-theme'),'light');assert.equal(a.w.localStorage.getItem(KEY),saved);
  a.d.querySelector('[data-scene="rain"]').click();assert.equal(a.d.getElementById('night-theme').disabled,false);assert.equal(a.w.localStorage.getItem('quintaj-theme'),'night');a.d.querySelector('[data-page="holidays"]').click();assert.match(a.d.getElementById('holiday-next').textContent,/Immacolata/);assert.match(a.d.getElementById('holiday-list').textContent,/Vacanze di Natale/);assert.match(a.d.getElementById('holiday-list').textContent,/Vacanze di Pasqua/);assert.match(a.d.getElementById('holiday-weekends').textContent,/weekend/);assert.deepEqual(a.errors,[]);
  }finally{a.dom.window.close();}
+});
+
+test('agenda: una verifica con data compare nel calendario e si può togliere',async()=>{
+ const a=await site();
+ try{const d=a.d;d.getElementById('phone-help').click();d.getElementById('task-text').value='Matematica <b>cap. 4</b>';d.getElementById('task-kind').value='verifica';d.getElementById('task-due').value='2026-11-20';d.getElementById('task-form').dispatchEvent(new a.w.Event('submit',{cancelable:true}));
+  const t=JSON.parse(a.w.localStorage.getItem(KEY)).tasks[0];assert.equal(t.kind,'verifica');assert.equal(t.calendar,true);
+  const pill=()=>d.querySelector('.event-pill.personale');assert.ok(pill(),'evento personale nel calendario');assert.match(pill().textContent,/Verifica: Matematica/);assert.equal(d.querySelectorAll('#calendar b').length,0);
+  d.querySelector('[data-task-cal]').click();assert.equal(JSON.parse(a.w.localStorage.getItem(KEY)).tasks[0].calendar,false);assert.equal(pill(),null);
+  assert.deepEqual(a.errors,[]);}finally{a.dom.window.close();}
+});
+
+test('agenda: copie vecchie senza tipo e calendario restano valide',async()=>{
+ const a=await site(JSON.stringify({version:1,tasks:[{id:'x1',text:'Vecchio',done:false,due:'2026-11-20'}]}));
+ try{assert.equal(a.d.querySelectorAll('.task-row').length,1);assert.equal(a.d.querySelector('.event-pill.personale'),null);assert.deepEqual(a.errors,[]);}finally{a.dom.window.close();}
 });

@@ -79,3 +79,19 @@ body.rain-on #qj-rain{opacity:1}
  .qj-slot .week-cell{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;min-height:0!important;padding:0!important;background:none!important;border:0!important;text-align:left;font-size:14px!important;color:var(--qj-ink)!important}
  .qj-slot .week-cell strong{font-size:20px!important;color:var(--qj-accent)!important}
 }
+
+/* impegni personali nel calendario (v cal1) */
+.event-pill.personale{background:#0f3a5c!important;color:#d9f1ff!important;border-color:#6bcfff!important}
+.event-pill.personale.is-done{opacity:.45;text-decoration:line-through}
+.legend span.legend-personal i{background:#6bcfff!important;border-radius:50%}
+.tag.personal{background:#0f3a5c!important;color:#9fdcff!important}
+.task-form-bottom{flex-wrap:wrap}
+.task-cal-opt{display:flex!important;align-items:center;gap:8px;flex-direction:row!important}
+.task-cal-opt input{width:20px;height:20px;margin:0}
+.task-kind{font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:#0f3a5c;color:#9fdcff}
+.task-kind.kind-verifica{background:#4a2330;color:#ffc6d2}
+.task-kind.kind-interrogazione{background:#443320;color:#ffdfa2}
+.task-cal-toggle{font-size:12px!important;padding:5px 10px!important;border-radius:8px}
+.task-cal-toggle.on{border-color:#6bcfff!important;color:#9fdcff!important}
+@media(max-width:650px){.day .event-pill.personale{background:#6bcfff!important;box-shadow:0 0 0 2px #0a1a2d}}
+@media(max-width:650px){.task-row-bottom{display:flex!important;flex-wrap:wrap;align-items:center;gap:8px!important}.task-row-bottom .task-date{flex:1 0 100%}.task-row-bottom button[data-task-delete]{margin-left:auto}}
