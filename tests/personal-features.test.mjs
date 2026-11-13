@@ -101,3 +101,11 @@ test('assemblea divisa per plesso: il 19 vale per la 5J (streaming e uscita al t
  assert.equal(e19.scope,'5J');assert.equal(e19.time,'09:15');assert.match(e19.title,/uscita al termine/);assert.match(c.practical.byDate['2026-11-19'],/streaming.*sciolte: si esce prima/);
  assert.equal(e18.scope,'Altre classi');assert.match(c.practical.byDate['2026-11-18'],/non riguarda la 5J/);
 });
+
+test('solo diurno: nelle circolari miste le parti del serale non entrano in calendario né nel riassunto',async()=>{
+ const {analyze}=await import('../lib/events.mjs');
+ const r={url:'https://nuovo.veronatrento.it/circolare/elezioni-test/',number:'900',published:'2026-09-30',title:'Elezioni per il rinnovo degli Organi Collegiali',body:'',documents:[{url:'x.pdf',text:'Codice mecc: meis027008 diurno metf0275050 serale\nOggetto: Elezioni per il rinnovo degli Organi Collegiali\nSi comunica che le votazioni si terranno lunedì 12 ottobre 2026: MATTINA (studenti del corso diurno) elezione dei rappresentanti di classe degli studenti.\nMartedì 13 ottobre 2026 alle ore 18:00 voteranno gli studenti del corso serale.'}]};
+ const c=analyze(r);const dates=c.events.map(e=>e.date);
+ assert.ok(!dates.includes('2026-10-13'),'data del serale esclusa');
+ for(const v of Object.values(c.practical))if(typeof v==='string')assert.doesNotMatch(v,/serale/);
+});
