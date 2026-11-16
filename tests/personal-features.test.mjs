@@ -135,3 +135,12 @@ test('uscite anticipate: segnate con massima importanza, solo per le date che ri
  const r={url:'https://nuovo.veronatrento.it/circolare/uscita-test/',number:'902',published:'2026-11-20',title:'Uscita anticipata classi quinte',body:'',documents:[{url:'x.pdf',text:'Oggetto: Uscita anticipata classi quinte\nSi comunica che giovedì 26 novembre 2026 le classi quinte usciranno alle ore 11:20 per lavori di manutenzione.'}]};
  const e=analyze(r).events.find(x=>x.date==='2026-11-26');assert.equal(e.earlyExit,true);assert.equal(e.exitTime,'11:20');
 });
+
+test('uscite anticipate etichettate col motivo: assemblea (certa) e sciopero (possibile)',async()=>{
+ const {analyze}=await import('../lib/events.mjs');
+ const recs=JSON.parse(await fs.readFile('tests/fixtures/circolari-spezzate.json','utf8'));
+ const a=analyze(recs.find(r=>r.number==='243')).events.find(e=>e.date==='2026-11-19');
+ assert.equal(a.exitReason,'Assemblea');assert.equal(a.exitCertain,true);
+ const s=analyze({...recs.find(r=>r.number==='229'),title:'Adesione alla proclamazione dello SCIOPERO GENERALE VENERDÌ 20 NOVEMBRE 2026'}).events.find(e=>e.date==='2026-11-20');
+ assert.equal(s.earlyExit,true);assert.equal(s.exitReason,'Sciopero');assert.equal(s.exitCertain,false);
+});

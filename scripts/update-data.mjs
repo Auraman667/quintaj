@@ -12,10 +12,13 @@ if(!all.length)throw Error('Nessuna circolare dell’anno corrente: mantenuta l�
 let rotating=previous.nextPage||2;
 if(known.size&&rotating>pages){try{const items=await listPage(rotating);all.push(...items.filter(i=>i.published>=start));rotating=items.some(i=>i.published<start)||!items.length?2:rotating+1;}catch(e){errors.push({page:rotating,error:e.message});}}
 else rotating=2;
-const fresh=[...new Map(all.map(i=>[i.url,i])).values()].filter(item=>!map.has(item.url)||now-new Date(map.get(item.url).checkedAt)>6*3600000);
+// Assemblee, scioperi e uscite anticipate hanno la precedenza: si leggono per prime e si ricontrollano
+// a ogni giro (rettifiche comprese), perché significano che la classe esce prima.
+const PRIORITY=/assemblea|sciopero|uscit[ae] anticipat|sciolt[ei]|riduzione (?:dell[’']\s?)?orario|orario ridotto|rettifica/i;
+const fresh=[...new Map(all.map(i=>[i.url,i])).values()].filter(item=>!map.has(item.url)||now-new Date(map.get(item.url).checkedAt)>(PRIORITY.test(item.title)?25*60000:6*3600000));
 // Rilegge una volta le circolari estratte con la versione precedente del lettore PDF (max 60 per giro).
 const stale=[...map.values()].filter(r=>r.parser!==PARSER_VERSION&&!fresh.some(i=>i.url===r.url)).slice(0,60).map(({url,title,number,published})=>({url,title,number,published}));
-const queue=[...fresh,...stale];
+const queue=[...fresh,...stale].sort((a,b)=>(PRIORITY.test(b.title)?1:0)-(PRIORITY.test(a.title)?1:0));
 let index=0,read=0;async function worker(){while(index<queue.length){const item=queue[index++];try{const record=await readCircular(item);const old=map.get(item.url);if(old&&record.documents.length&&record.documents.every(d=>!d.text)&&old.documents.some(d=>d.text)){errors.push({url:item.url,error:'PDF non leggibile: mantenuta versione precedente'});continue;}map.set(item.url,record);read++;}catch(e){errors.push({url:item.url,error:e.message});}}}
 await Promise.all([worker(),worker(),worker()]);
 const records=[...map.values()].sort((a,b)=>b.published.localeCompare(a.published)||Number(b.number)-Number(a.number));if(!records.length)throw Error('Importazione fallita: mantenuto il sito precedente');
