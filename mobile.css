@@ -100,3 +100,12 @@ body.rain-on #qj-rain{opacity:1}
 .day .day-alert-label{display:block;margin:2px 0;padding:2px 4px;border-radius:6px;background:#b4233c;color:#fff;font-size:11px;font-weight:700;text-align:center;line-height:1.2}
 .event-pill.alert{background:#5a1624!important;color:#ffd5dc!important;border-color:#ff6b81!important}
 @media(max-width:650px){.day .day-alert-label{order:5;flex:0 0 100%;font-size:8px!important;padding:1px!important;white-space:normal}.day .event-pill.alert{background:#ff6b81!important}}
+
+/* uscite anticipate: massima importanza (v exit1) */
+.exit-banner{margin:0 0 14px}.exit-banner.hidden{display:none}
+.exit-banner button{display:flex;flex-direction:column;gap:3px;width:100%;text-align:left;padding:12px 14px;border-radius:14px;border:2px solid #ffb020;background:linear-gradient(135deg,#5c3a00,#3a2400);color:#fff;font:inherit;cursor:pointer;box-shadow:0 6px 24px rgba(255,176,32,.25)}
+.exit-banner b{font-size:15px;color:#ffd27a}.exit-banner span{font-size:13px;color:#ffe9c2}
+.day .day-alert-label.exit{background:#ffb020;color:#1a1000}
+.event-pill.exit{background:#5c3a00!important;color:#ffe2a8!important;border-color:#ffb020!important}
+.exit-badge{display:inline-block;margin:0 0 6px;padding:3px 8px;border-radius:7px;background:#ffb020;color:#1a1000;font-size:12px;font-weight:800}
+@media(max-width:650px){.day .event-pill.exit{background:#ffb020!important}.day .day-alert-label.exit{font-size:8px!important}}
