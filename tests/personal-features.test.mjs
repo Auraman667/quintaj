@@ -144,3 +144,9 @@ test('uscite anticipate etichettate col motivo: assemblea (certa) e sciopero (po
  const s=analyze({...recs.find(r=>r.number==='229'),title:'Adesione alla proclamazione dello SCIOPERO GENERALE VENERDÌ 20 NOVEMBRE 2026'}).events.find(e=>e.date==='2026-11-20');
  assert.equal(s.earlyExit,true);assert.equal(s.exitReason,'Sciopero');assert.equal(s.exitCertain,false);
 });
+
+test('uscita anticipata per assemblea sindacale dei docenti: segnata col motivo',async()=>{
+ const {analyze}=await import('../lib/events.mjs');
+ const r={url:'https://nuovo.veronatrento.it/circolare/uscita-sindacale-test/',number:'903',published:'2026-10-20',title:'uscita anticipata alunni per adesione docenti Assemblea Sindacale del 26 ottobre',body:'',documents:[{url:'x.pdf',text:'Oggetto: uscita anticipata alunni per adesione docenti Assemblea Sindacale del 26 ottobre\nSi comunica che lunedì 26 ottobre 2026, a causa dell’adesione dei docenti all’assemblea sindacale, le classi del plesso Majorana e della sede Verona Trento usciranno alle ore 11:20.'}]};
+ const e=analyze(r).events.find(x=>x.date==='2026-10-26');assert.equal(e.earlyExit,true);assert.equal(e.exitReason,'Assemblea sindacale');
+});
