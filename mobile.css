@@ -95,3 +95,8 @@ body.rain-on #qj-rain{opacity:1}
 .task-cal-toggle.on{border-color:#6bcfff!important;color:#9fdcff!important}
 @media(max-width:650px){.day .event-pill.personale{background:#6bcfff!important;box-shadow:0 0 0 2px #0a1a2d}}
 @media(max-width:650px){.task-row-bottom{display:flex!important;flex-wrap:wrap;align-items:center;gap:8px!important}.task-row-bottom .task-date{flex:1 0 100%}.task-row-bottom button[data-task-delete]{margin-left:auto}}
+
+/* scioperi e assemblee: ben visibili nel calendario (v alert1) */
+.day .day-alert-label{display:block;margin:2px 0;padding:2px 4px;border-radius:6px;background:#b4233c;color:#fff;font-size:11px;font-weight:700;text-align:center;line-height:1.2}
+.event-pill.alert{background:#5a1624!important;color:#ffd5dc!important;border-color:#ff6b81!important}
+@media(max-width:650px){.day .day-alert-label{order:5;flex:0 0 100%;font-size:8px!important;padding:1px!important;white-space:normal}.day .event-pill.alert{background:#ff6b81!important}}

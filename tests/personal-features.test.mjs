@@ -117,3 +117,12 @@ test('di sera non vuol dire serale: i consigli di classe con i rappresentanti re
  assert.ok(dates.includes('2026-11-26'),'consiglio della 5J di sera presente');
  assert.ok(!dates.includes('2026-11-25'),'consigli del corso serale esclusi');
 });
+
+test('assemblea e sciopero visibili alla 5J anche se la circolare cita i rappresentanti',async()=>{
+ const {analyze}=await import('../lib/events.mjs');
+ const recs=JSON.parse(await fs.readFile('tests/fixtures/circolari-spezzate.json','utf8'));
+ const a=analyze(recs.find(r=>r.number==='243')).events.find(e=>e.date==='2026-11-19');
+ assert.equal(a.representative,false,'non è una riunione solo per rappresentanti');
+ const s=analyze({...recs.find(r=>r.number==='229'),title:'Adesione alla proclamazione dello SCIOPERO.GENERALE.VENERDÌ.20.NOVEMBRE. 2026 CIB.UNICOBAS'}).events.find(e=>e.date==='2026-11-20');
+ assert.equal(s.title,'Sciopero generale (CIB UNICOBAS) · lezioni non garantite');assert.equal(s.scope,'Generale');
+});
