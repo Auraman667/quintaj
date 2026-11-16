@@ -111,3 +111,8 @@ body.rain-on #qj-rain{opacity:1}
 @media(max-width:650px){.day .event-pill.exit{background:#ffb020!important}.day .day-alert-label.exit{font-size:8px!important}}
 
 .day .day-alert-label.exit.maybe,.exit-badge.maybe{background:#ffd27a;color:#2a1a00;border:1px dashed #1a1000}
+
+/* avvisi della città (v city1) */
+.day .day-alert-label.closure,.exit-badge.closure{background:#e11d48;color:#fff}
+.day .day-alert-label.weather,.exit-badge.weather{background:#7c3aed;color:#fff}
+.exit-banner.closure button{border-color:#ff4d6d;background:linear-gradient(135deg,#5a0a1e,#2a0410)}.exit-banner.closure b{color:#ffb3c1}

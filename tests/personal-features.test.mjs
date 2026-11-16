@@ -150,3 +150,17 @@ test('uscita anticipata per assemblea sindacale dei docenti: segnata col motivo'
  const r={url:'https://nuovo.veronatrento.it/circolare/uscita-sindacale-test/',number:'903',published:'2026-10-20',title:'uscita anticipata alunni per adesione docenti Assemblea Sindacale del 26 ottobre',body:'',documents:[{url:'x.pdf',text:'Oggetto: uscita anticipata alunni per adesione docenti Assemblea Sindacale del 26 ottobre\nSi comunica che lunedì 26 ottobre 2026, a causa dell’adesione dei docenti all’assemblea sindacale, le classi del plesso Majorana e della sede Verona Trento usciranno alle ore 11:20.'}]};
  const e=analyze(r).events.find(x=>x.date==='2026-10-26');assert.equal(e.earlyExit,true);assert.equal(e.exitReason,'Assemblea sindacale');
 });
+
+test('avvisi città: chiusura delle scuole a Messina dai giornali, solo città e solo fonti affidabili',async()=>{
+ const {parseFeed,newsEvents}=await import('../lib/news.mjs');
+ const xml=`<rss><channel>
+ <item><title><![CDATA[Maltempo a Messina, domani scuole chiuse: firmata l'ordinanza del sindaco Basile]]></title><link>https://gazzettadelsud.it/articoli/cronaca/2026/11/16/maltempo-messina-scuole-chiuse/</link><pubDate>Mon, 16 Nov 2026 17:10:00 +0100</pubDate><description>Allerta arancione, chiuse le scuole di ogni ordine e grado.</description></item>
+ <item><title>Savoca e Letojanni, scuole chiuse per allerta meteo</title><link>https://gazzettadelsud.it/x</link><pubDate>Mon, 16 Nov 2026 16:00:00 +0100</pubDate><description>Provincia di Messina: chiusure nella zona ionica.</description></item>
+ <item><title>Messina, falsa ordinanza sulle scuole chiuse: il Comune smentisce</title><link>https://gazzettadelsud.it/y</link><pubDate>Mon, 16 Nov 2026 15:00:00 +0100</pubDate><description>Scuole chiuse a Messina? È un fake.</description></item>
+ <item><title>Messina, scuole chiuse per maltempo</title><source url="https://blog-sconosciuto.example">Blog sconosciuto</source><link>https://blog-sconosciuto.example/z</link><pubDate>Mon, 16 Nov 2026 15:00:00 +0100</pubDate><description>a Messina</description></item>
+ </channel></rss>`;
+ const items=parseFeed(xml,'Gazzetta del Sud');assert.equal(items.length,4);
+ const ev=newsEvents(items,'2026-11-16');
+ assert.equal(ev.length,1,'solo la notizia sulla città, non la provincia, non il fake, non fonti sconosciute');
+ assert.equal(ev[0].date,'2026-11-17');assert.equal(ev[0].closure,true);assert.match(ev[0].title,/Scuole chiuse a Messina per maltempo · da verificare/);
+});
