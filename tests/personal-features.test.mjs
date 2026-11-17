@@ -7,7 +7,7 @@ import {practicalFor} from '../lib/practical.mjs';
 import {schoolBreaksFor,closureEvents} from '../lib/school-breaks.mjs';
 import {datesIn} from '../lib/events.mjs';
 const payload=JSON.parse(await fs.readFile('data.json','utf8'));
-const html=(await fs.readFile('index.html','utf8')).replace('<script src="./personal-agenda.js?v=cal1"></script>','<script>'+await fs.readFile('personal-agenda.js','utf8')+'</script>').replace('<script src="./appearance.js?v=night6"></script>','<script>'+await fs.readFile('appearance.js','utf8')+'</script>');
+const html=(await fs.readFile('index.html','utf8')).replace('<script src="./personal-agenda.js?v=exit1"></script>','<script>'+await fs.readFile('personal-agenda.js','utf8')+'</script>').replace('<script src="./appearance.js?v=night6"></script>','<script>'+await fs.readFile('appearance.js','utf8')+'</script>');
 const KEY='quintaj-personal-agenda-v1';
 async function site(saved){const errors=[],requests=[];const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));const dom=new JSDOM(html,{url:'https://example.github.io/quintaj/',runScripts:'dangerously',virtualConsole:vc,beforeParse(w){w.QuintaJSchedule=core;w.TextEncoder=TextEncoder;w.fetch=async url=>{requests.push(url);return {ok:true,headers:{get:()=>null},json:async()=>payload};};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};if(saved)w.localStorage.setItem(KEY,saved);}});await new Promise(r=>setTimeout(r,150));return {dom,w:dom.window,d:dom.window.document,errors,requests};}
 
@@ -163,4 +163,15 @@ test('avvisi città: chiusura delle scuole a Messina dai giornali, solo città e
  const ev=newsEvents(items,'2026-11-16');
  assert.equal(ev.length,1,'solo la notizia sulla città, non la provincia, non il fake, non fonti sconosciute');
  assert.equal(ev[0].date,'2026-11-17');assert.equal(ev[0].closure,true);assert.match(ev[0].title,/Scuole chiuse a Messina per maltempo · da verificare/);
+});
+
+test('agenda: un’uscita anticipata segnata a mano (es. MyProf) compare in calendario e accorcia l’orario',async()=>{
+ const a=await site();
+ try{const d=a.d;d.getElementById('phone-help').click();d.getElementById('task-kind').value='uscita';d.getElementById('task-kind').dispatchEvent(new a.w.Event('change'));
+  assert.equal(d.getElementById('task-time-wrap').classList.contains('hidden'),false,'compare il campo ora');
+  d.getElementById('task-text').value='Assenza docente TPSI';d.getElementById('task-due').value='2026-11-18';d.getElementById('task-time').value='13:00';
+  d.getElementById('task-form').dispatchEvent(new a.w.Event('submit',{cancelable:true}));
+  const t=JSON.parse(a.w.localStorage.getItem(KEY)).tasks[0];assert.equal(t.kind,'uscita');assert.equal(t.time,'13:00');assert.equal(t.calendar,true);
+  const ev=a.w.QuintaJAgenda.calendarEvents()[0];assert.equal(ev.earlyExit,true);assert.equal(ev.time,'13:00');assert.equal(ev.scope,'5J');assert.match(ev.title,/Uscita anticipata alle 13:00/);
+  assert.deepEqual(a.errors,[]);}finally{a.dom.window.close();}
 });

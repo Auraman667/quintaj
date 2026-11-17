@@ -1,0 +1,21 @@
+{
+ "_nota": "Avvisi che non passano dalle circolari (es. notifiche MyProf). Ogni voce resta sul sito fino al giorno dopo la data.",
+ "events": [
+  {
+   "id": "manuale-2026-11-18-uscita-tpsi",
+   "date": "2026-11-18",
+   "time": "13:00",
+   "title": "Uscita anticipata alle 13:00 · assenza docente TPSI",
+   "category": "Orario",
+   "scope": "5J",
+   "classes": ["5J"],
+   "earlyExit": true,
+   "exitTime": "13:00",
+   "exitReason": "Assenza docente TPSI",
+   "exitCertain": true,
+   "source": "Notifica MyProf",
+   "confidence": "Riga per la 5J (avviso MyProf)",
+   "context": "5J uscita anticipata alle 13:00 per assenza del docente di TPSI (notifica MyProf)."
+  }
+ ]
+}

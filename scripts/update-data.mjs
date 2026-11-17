@@ -29,7 +29,8 @@ const raw={updatedAt:new Date().toISOString(),schoolYear:'2026/2027',start,compl
 let timetable=publicPrevious.timetable,timetableError=null;try{timetable=await readTimetable(records);}catch(e){timetableError='Orario non aggiornato: '+e.message;}
 const payload={...publicData(raw),timetable,timetableError,mode:'github-pages',syncUntil:UNTIL,refreshing:false,lastError:null};
 payload.timetable={...payload.timetable,schoolBreaks:payload.schoolBreaks};
-const cityEvents=newsEvents(newsItems,today);payload.events=[...payload.events,...cityEvents].sort((a,b)=>a.date.localeCompare(b.date)||(a.time||'').localeCompare(b.time||''));payload.newsStatus=news.status;
+let manualEvents=[];try{const m=JSON.parse(await fs.readFile('manual-events.json','utf8'));const yesterday=new Date(now-86400000).toISOString().slice(0,10);manualEvents=(m.events||[]).filter(e=>e.date>=yesterday).map(e=>({number:'',url:'',inferred:false,studentRelevant:true,representative:false,manual:true,summary:e.title,...e}));}catch{}
+const cityEvents=newsEvents(newsItems,today);payload.events=[...payload.events,...cityEvents,...manualEvents].sort((a,b)=>a.date.localeCompare(b.date)||(a.time||'').localeCompare(b.time||''));payload.newsStatus=news.status;
 console.log('Fonti città: '+news.status.map(s=>(s.ok?'OK ':'NO ')+s.source+(s.ok?' ('+s.items+')':' – '+s.error)+' '+s.url).join(' | '));console.log('Avvisi città: '+JSON.stringify(cityEvents.map(e=>[e.date,e.title,e.newsSource])));
 await fs.writeFile('.cache/state.json',JSON.stringify(raw));await fs.writeFile('data.json.tmp',JSON.stringify(payload));await fs.rename('data.json.tmp','data.json');
 console.log(JSON.stringify({read,archiveCount:records.length,studentCount:payload.studentCount,events:payload.events.length,updatedAt:payload.updatedAt,errors:errors.length,timetableError}));
