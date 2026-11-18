@@ -3,12 +3,15 @@ const UNTIL='2027-08-31';const now=new Date();const today=new Intl.DateTimeForma
 if(today>UNTIL){console.log('Aggiornamenti conclusi il '+UNTIL+'. Il sito conserva gli ultimi dati.');process.exit(0);}
 await fs.mkdir('.cache',{recursive:true});let previous={records:[],nextPage:2,complete:false};try{previous=JSON.parse(await fs.readFile('.cache/state.json','utf8'));}catch{}
 const publicPrevious=JSON.parse(await fs.readFile('data.json','utf8'));const map=new Map(previous.records.map(r=>[r.url,r]));const known=new Set(map.keys());const start='2026-09-01';let all=[],pages=0,complete=previous.complete,errors=[];
-for(let p=1;p<=100;p++){
+// Se il sito della scuola non risponde, si pubblica comunque con le circolari già lette
+// (così avvisi manuali, notizie della città e orario restano aggiornati).
+let sourceDown=null;
+try{for(let p=1;p<=100;p++){
  const items=await listPage(p);pages=p;if(!items.length){complete=true;break;}all.push(...items.filter(i=>i.published>=start));
  if(items.some(i=>i.published<start)){complete=true;break;}
  if(known.size&&items.some(i=>known.has(i.url)))break;
-}
-if(!all.length)throw Error('Nessuna circolare dell’anno corrente: mantenuta l’ultima pubblicazione');
+}}catch(e){if(!map.size)throw e;sourceDown='Sito della scuola non raggiungibile: '+(e.cause?.code||e.message);errors.push({page:'elenco',error:sourceDown});console.log(sourceDown+' — uso le circolari già lette');}
+if(!all.length&&!sourceDown)throw Error('Nessuna circolare dell’anno corrente: mantenuta l’ultima pubblicazione');
 let rotating=previous.nextPage||2;
 if(known.size&&rotating>pages){try{const items=await listPage(rotating);all.push(...items.filter(i=>i.published>=start));rotating=items.some(i=>i.published<start)||!items.length?2:rotating+1;}catch(e){errors.push({page:rotating,error:e.message});}}
 else rotating=2;
