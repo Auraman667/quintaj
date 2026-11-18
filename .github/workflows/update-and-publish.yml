@@ -5,8 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: '17,47 7-21 * * *'
-      timezone: Europe/Rome
+    # GitHub salta o ritarda molti giri programmati: un controllo ogni 10 minuti (orari UTC, 6-22 ora italiana)
+    # assicura almeno un aggiornamento ogni mezz'ora anche quando ne perde qualcuno.
+    - cron: '3,13,23,33,43,53 5-21 * * *'
 
 permissions:
   contents: read
