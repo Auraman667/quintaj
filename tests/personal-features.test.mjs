@@ -62,7 +62,7 @@ test('preferenze: cinque immagini, tema chiaro ripristinabile e agenda personale
 
 test('agenda: una verifica con data compare nel calendario e si può togliere',async()=>{
  const a=await site();
- try{const d=a.d;d.getElementById('phone-help').click();d.getElementById('task-text').value='Matematica <b>cap. 4</b>';d.getElementById('task-kind').value='verifica';d.getElementById('task-due').value='2026-11-20';d.getElementById('task-form').dispatchEvent(new a.w.Event('submit',{cancelable:true}));
+ try{const d=a.d;d.getElementById('phone-help').click();d.getElementById('task-text').value='Matematica <b>cap. 4</b>';d.getElementById('task-kind').value='verifica';d.getElementById('task-due').value=new Date().toISOString().slice(0,8)+'20';d.getElementById('task-form').dispatchEvent(new a.w.Event('submit',{cancelable:true}));
   const t=JSON.parse(a.w.localStorage.getItem(KEY)).tasks[0];assert.equal(t.kind,'verifica');assert.equal(t.calendar,true);
   const pill=()=>d.querySelector('.event-pill.personale');assert.ok(pill(),'evento personale nel calendario');assert.match(pill().textContent,/Verifica: Matematica/);assert.equal(d.querySelectorAll('#calendar b').length,0);
   d.querySelector('[data-task-cal]').click();assert.equal(JSON.parse(a.w.localStorage.getItem(KEY)).tasks[0].calendar,false);assert.equal(pill(),null);
