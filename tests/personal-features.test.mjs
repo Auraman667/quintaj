@@ -184,3 +184,63 @@ test('circolari per gli studenti non scartate: incontri, visite, proiezioni, cla
  assert.equal(audienceFor(mk('Oggetto: Proiezione dei film: “Se domani non torno” di P. Randi.','Gli studenti delle classi indicate assisteranno alla proiezione.')).studentRelevant,true);
  assert.equal(audienceFor({title:'Reclutamento del personale docente per il progetto',documents:[{text:'Ai docenti\nOggetto: Reclutamento\nSi invitano i docenti…'}]}).studentRelevant,false,'resta escluso ciò che è solo per docenti');
 });
+
+test('dove va la 5J: turni, tabelle CLASSE AULA, spostamenti per modulo, scansioni orarie, testo e aule sostitutive',async()=>{
+ const {placementsFor5J}=await import('../lib/location-changes.mjs');const {datesIn}=await import('../lib/events.mjs');
+ const T={
+'256':['2026-11-25','Incontro formativo “CONTRO OGNI FORMA DI ABUSO, DISCRIMINAZIONE E VIOLENZA” – Giornata Internazionale contro la violenza sulle donne – 25 NOVEMBRE 2026',`Oggetto: Incontro formativo
+1° TURNO – Dalle ore 9:15 alle ore 10:30
+(Partecipano le classi del primo biennio)
+ In Palestra - Tutte le classi SECONDE e le seguenti classi PRIME: 1A, 1B, 1E, 1F, 1G, 1H, 1I, 1J, 1P
+ In Aula Smiroldo da remoto - Le seguenti classi PRIME: 1C, 1Q, 1R, 1D.
+ Da remoto le classi PRIME e SECONDE del Plesso MAJORANA
+2° TURNO – Dalle ore 10:45 alle ore 12:15
+(Partecipano le classi del secondo biennio e le classi quinte)
+ In Palestra - Tutte le classi QUARTE e le seguenti classi QUINTE: 5A, 5B, 5C, 5D, 5H, 5I, 5M, 5N,
+5Q, 5R.
+ In Aula Smiroldo da remoto - Le seguenti classi quinte: 5E, 5F, 5G, 5J.
+ Da remoto - Le classi del TRIENNIO del Plesso MAJORANA`],
+'273':['2026-11-30','Incontro congiunto Ispettorato del Lavoro e INPS – Aula Magna “G. Smiroldo” Via Ugo Bassi lunedì 30 Novembre 2026',`Oggetto: Incontro congiunto
+Si comunica che lunedì 30 novembre 2026, dalle ore 9:30 alle ore 13:00, presso l'Aula Magna “G. Smiroldo” si terrà l'incontro. Le classi in elenco seguiranno da remoto dalle aule indicate.
+Firma autografa omessa ai sensi
+CLASSE AULA
+VA B12
+VD BT7
+VJ B15
+VK AULA MAGNA MAJORANA`],
+'253':['2026-11-24','Partecipazione GREEN GAME DIGITAL A SCUOLA DI RICICLO 2026/2027 – Disposizioni organizzative',`Oggetto: Green game
+1I B15 1J B34 1M B19 1P B38
+Prospetto variazione aula per le altre classi
+Classe in spostamento Aula Temporanea Docente in orario
+5J 1° MOD – AR2 NATOLI ROSARIO
+5M BIO 1° MOD – A26 LIOTTA CLAUDIA`],
+'182':['2026-10-26','Convegno EdYouFest On Tour “Beyond the Text” – 26 ottobre 2026',`Oggetto: Convegno EdYouFest On Tour “Beyond the Text” 26 ottobre 2026
+Si comunica che lunedì 26 ottobre 2026, dalle ore 9.00 alle ore 13.00, presso l'aula Smiroldo dell'IIS
+“Verona Trento” si terrà il convegno EdYouFest On Tour “Beyond the Text”. All'evento
+parteciperanno gli studenti della classe VJ, dalle ore 09.00 alle 11.45, e gli studenti della classe VG,
+dalle ore 11.15 alle ore 13.00. Al termine della giornata sarà rilasciato attestato di partecipazione.`],
+'153':['2026-10-29','Incontro di Formazione su AI e Vibe Coding – Giovedì 29 ottobre 2026',`Oggetto: Incontro AI
+Gli alunni partecipanti si recheranno in aula Magna accompagnati dal docente del modulo secondo la
+scansione oraria di seguito indicata.
+ORARIO Classi interessate
+9:15 - 10:25 3E, 3F, 3G, 3 J, 3N, 3O
+11:45 – 13:00 5E, 5F, 5G, 5J, 5N`],
+'150':['2026-10-19|2026-10-26','Interdizione locali palestra Via Ugo Bassi lunedì 19 e lunedì 26 ottobre 2026',`Oggetto: Interdizione locali palestra
+Si comunica che lunedì 19 ottobre e lunedì 26 ottobre 2026 i locali della palestra saranno interdetti.
+LUNEDI'19
+I MODULO IA a28 IIC a18 IVJ at15a IVR b29 VE bt6
+II MODULO IIIO a19 VA a21 VJ a29 VM b13
+III MODULO IE a19 IG a29 IIB b17`],
+'111':['2026-10-06','prolungamento interdizione locali palestra Via Ugo Bassi nei giorni 5 e 6 ottobre 2026.',`Oggetto: prolungamento interdizione
+MARTEDI' 6 OTTOBRE 2026 – TERZA SETTIMANA
+MODULO CLASSI AULE
+I 3 A BIBLIO
+3 Q A11
+5 J A26
+II 2 Q B17`],
+'127':['2026-10-10','Delega ai docenti Coordinatori a presiedere le Assemblee',`Oggetto: Delega
+NATOLI R. 5 J A R 3`]
+};
+ const got={};for(const [n,[ds,title,text]] of Object.entries(T)){const r=placementsFor5J({title,url:'u'+n,published:'2026-10-01',documents:[{text}]},ds.split('|').map(date=>({date})),datesIn);got[n]=r.map(c=>c.date+' '+c.start+'-'+c.end+' '+c.newRoom).join(' | ');}
+ assert.deepEqual(got,{'256':'2026-11-25 10:45-12:15 Aula Smiroldo (da remoto)','273':'2026-11-30 09:30-13:00 B15','253':'2026-11-24 08:00-09:15 AR2','182':'2026-10-26 09:00-11:45 Aula Smiroldo','153':'2026-10-29 11:45-13:00 Aula Magna','150':'2026-10-19 09:15-10:30 A29','111':'2026-10-06 08:00-09:15 A26','127':''});
+});
