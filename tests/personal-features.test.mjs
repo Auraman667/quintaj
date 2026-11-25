@@ -216,9 +216,10 @@ Classe in spostamento Aula Temporanea Docente in orario
 5M BIO 1° MOD – A26 LIOTTA CLAUDIA`],
 '182':['2026-10-26','Convegno EdYouFest On Tour “Beyond the Text” – 26 ottobre 2026',`Al personale Docente
 delle classi VG–VJ
+Proprie Sedi
 Oggetto: Convegno EdYouFest On Tour “Beyond the Text” 26 ottobre 2026
 Si comunica che lunedì 26 ottobre 2026, dalle ore 9.00 alle ore 13.00, presso l'aula Smiroldo dell'IIS
-“Verona Trento” si terrà il convegno EdYouFest On Tour “Beyond the Text” e all'evento
+“Verona Trento” si terrà il convegno EdYouFest On Tour “Beyond the Text” aperto ai docenti della provincia. All'evento
 parteciperanno gli studenti della classe VJ, dalle ore 09.00 alle 11.45, e gli studenti della classe VG,
 dalle ore 11.15 alle ore 13.00. Al termine della giornata sarà rilasciato attestato di partecipazione.`],
 '153':['2026-10-29','Incontro di Formazione su AI e Vibe Coding – Giovedì 29 ottobre 2026',`Oggetto: Incontro AI
