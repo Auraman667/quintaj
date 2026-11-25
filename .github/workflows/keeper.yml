@@ -1,0 +1,40 @@
+name: Timer aggiornamenti QuintaJ (ogni 30 minuti)
+
+# Lo scheduler di GitHub salta quasi tutti i giri programmati (2-3 al giorno invece di 48).
+# Questo timer avvia l'aggiornamento ogni 30 minuti per ~5 ore e mezza, poi riavvia sé stesso.
+# Il cron qui sotto serve solo a far ripartire la catena se per qualche motivo si interrompe.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7 */2 * * *'
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: quintaj-keeper
+  cancel-in-progress: false
+
+jobs:
+  keep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Avvia l'aggiornamento ogni 30 minuti
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [[ "$(TZ=Europe/Rome date +%F)" > '2027-08-31' ]]; then echo 'Anno scolastico finito: timer fermo'; echo STOP > stop.txt; exit 0; fi
+          for i in $(seq 1 11); do
+            echo "Giro $i: $(TZ=Europe/Rome date '+%d/%m %H:%M')"
+            gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/update-and-publish.yml/dispatches" -f ref=main || echo 'Avvio non riuscito, riprovo al prossimo giro'
+            sleep 1800
+          done
+      - name: Riavvia il timer
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [[ -f stop.txt ]]; then exit 0; fi
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/workflows/keeper.yml/dispatches" -f ref=main
