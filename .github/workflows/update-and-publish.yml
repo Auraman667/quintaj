@@ -68,7 +68,14 @@ jobs:
           git add data.json
           if ! git diff --cached --quiet; then
             git commit -m 'Aggiorna circolari e orario della 5J'
-            git push origin HEAD:main
+            # Se nel frattempo è arrivata una modifica al sito, la integra e riprova (fino a 5 volte).
+            # Anche se il salvataggio non riesce, il sito viene pubblicato lo stesso con i dati nuovi.
+            for i in 1 2 3 4 5; do
+              git push origin HEAD:main && break
+              echo "Push rifiutato (tentativo $i): integro le modifiche arrivate e riprovo"
+              git pull --rebase -X theirs origin main || { git rebase --abort; git pull --no-rebase -X ours origin main; }
+              sleep $((i*5))
+            done || true
           fi
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
