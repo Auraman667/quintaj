@@ -175,3 +175,12 @@ test('agenda: un’uscita anticipata segnata a mano (es. MyProf) compare in cale
   const ev=a.w.QuintaJAgenda.calendarEvents()[0];assert.equal(ev.earlyExit,true);assert.equal(ev.time,'13:00');assert.equal(ev.scope,'5J');assert.match(ev.title,/Uscita anticipata alle 13:00/);
   assert.deepEqual(a.errors,[]);}finally{a.dom.window.close();}
 });
+
+test('circolari per gli studenti non scartate: incontri, visite, proiezioni, classi quinte',async()=>{
+ const {audienceFor}=await import('../lib/audience.mjs');
+ const mk=(title,text)=>({title,documents:[{text:'Agli alunni\nAi docenti\nOggetto: '+title+'\n'+text}]});
+ assert.equal(audienceFor(mk('Incontro formativo “CONTRO OGNI FORMA DI ABUSO, DISCRIMINAZIONE E VIOLENZA” – Giornata Internazionale contro la violenza sulle donne – 25 NOVEMBRE 2026','In occasione della Giornata, le classi parteciperanno all’incontro in palestra.')).studentRelevant,true);
+ assert.equal(audienceFor(mk('Visita ai “Luoghi Verghiani” di Catania – CLASSI QUINTE','Si comunica che le classi quinte effettueranno una visita.')).studentRelevant,true);
+ assert.equal(audienceFor(mk('Oggetto: Proiezione dei film: “Se domani non torno” di P. Randi.','Gli studenti delle classi indicate assisteranno alla proiezione.')).studentRelevant,true);
+ assert.equal(audienceFor({title:'Reclutamento del personale docente per il progetto',documents:[{text:'Ai docenti\nOggetto: Reclutamento\nSi invitano i docenti…'}]}).studentRelevant,false,'resta escluso ciò che è solo per docenti');
+});
