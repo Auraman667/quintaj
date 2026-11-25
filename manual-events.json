@@ -2,54 +2,17 @@
  "_nota": "Avvisi che non passano dalle circolari (es. notifiche MyProf). Ogni voce resta sul sito fino al giorno dopo la data.",
  "events": [
   {
-   "id": "manuale-2026-11-18-uscita-tpsi",
-   "date": "2026-11-18",
-   "time": "13:00",
-   "title": "Uscita anticipata alle 13:00 · assenza docente TPSI",
-   "category": "Orario",
+   "id": "manuale-2026-11-25-violenza-donne-5j",
+   "date": "2026-11-25",
+   "title": "Giornata contro la violenza sulle donne · la 5J segue l’incontro da remoto in Aula Smiroldo",
+   "category": "Scuola",
    "scope": "5J",
    "classes": [
     "5J"
    ],
-   "earlyExit": true,
-   "exitTime": "13:00",
-   "exitReason": "Assenza docente TPSI",
-   "exitCertain": true,
-   "source": "Notifica MyProf",
-   "confidence": "Riga per la 5J (avviso MyProf)",
-   "context": "5J uscita anticipata alle 13:00 per assenza del docente di TPSI (notifica MyProf)."
-  },
-  {
-   "id": "manuale-2026-11-18-aula-ar2",
-   "date": "2026-11-18",
-   "time": "08:00",
-   "title": "Cambio aula: oggi la 5J è in AR2 (invece di B15)",
-   "category": "Aule",
-   "scope": "5J",
-   "classes": [
-    "5J"
-   ],
-   "source": "Comunicazione in classe",
-   "confidence": "Riga per la 5J (avviso)",
-   "context": "5J spostata in aula AR2 al posto della B15. Informatica delle 9:15 resta in laboratorio B23.",
-   "roomChanges": [
-    {
-     "date": "2026-11-18",
-     "start": "08:00",
-     "end": "09:15",
-     "previousRoom": "B15",
-     "newRoom": "AR2",
-     "title": "Cambio aula: AR2 invece di B15"
-    },
-    {
-     "date": "2026-11-18",
-     "start": "10:30",
-     "end": "13:00",
-     "previousRoom": "B15",
-     "newRoom": "AR2",
-     "title": "Cambio aula: AR2 invece di B15"
-    }
-   ]
+   "source": "Circolare 256",
+   "confidence": "Riga per la 5J (circolare 256)",
+   "context": "Circolare 256: «In Aula Smiroldo da remoto – Le seguenti classi quinte: 5E, 5F, 5G, 5J». Le classi devono raggiungere l’aula 10 minuti prima dell’inizio."
   }
  ]
 }
